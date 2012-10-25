@@ -8,4 +8,12 @@ public class QuestDefinition {
 		this.name = name;
 		this.fields = fields;
 	}
+
+	public int getLength() {
+		int l = 0;
+		for (int i = 0; i < fields.length; i++) {
+			l += fields[i].field.length;
+		}
+		return l;
+	}
 }

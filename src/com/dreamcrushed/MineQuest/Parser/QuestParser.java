@@ -2,6 +2,10 @@ package com.dreamcrushed.MineQuest.Parser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class QuestParser {
 //	private List<Quester> questers;
@@ -27,7 +31,131 @@ public class QuestParser {
 //	private AreaPreserver areaPreserver;
 	private boolean no_mobs;
 	
+	protected Map<Integer, EventLine> events = new HashMap<Integer, EventLine>();
+	protected Map<Integer, Task> tasks = new HashMap<Integer, Task>();
+	protected List<EventDefinition> eventDefs = new ArrayList<EventDefinition>();
+	protected List<QuestDefinition> questDefs = new ArrayList<QuestDefinition>();
+	protected List<QuestLine> fields = new ArrayList<QuestLine>();
+	
 	public QuestParser(String filename) {
+		questDefs.add(new QuestDefinition("QuestArea", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "FieldName"),
+				new FieldDefinition(Type.ILOC, "Start"),
+				new FieldDefinition(Type.ILOC, "End"),
+		}));
+		questDefs.add(new QuestDefinition("Instance", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "FieldName"),
+				new FieldDefinition(Type.INTEGER, "MaxInstances"),
+				new FieldDefinition(Type.STRING, "InstanceName"),
+				new FieldDefinition(Type.STRING, "OriginalName"),
+				new FieldDefinition(Type.STRING, "Type"),
+		}));
+		questDefs.add(new QuestDefinition("Spawn", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "FieldName"),
+				new FieldDefinition(Type.FLOC, "Location"),
+		}));
+
+		eventDefs.add(new EventDefinition("AreaEvent", new FieldDefinition[] {
+					new FieldDefinition(Type.STRING, "Event"),
+					new FieldDefinition(Type.INTEGER, "ID"),
+					new FieldDefinition(Type.STRING, "EventName"),
+					new FieldDefinition(Type.INTEGER, "Delay"),
+					new FieldDefinition(Type.TASK, "NextIndex"),
+					new FieldDefinition(Type.FLOC, "Location"),
+					new FieldDefinition(Type.FLOAT, "Radius"),
+			}));
+		eventDefs.add(new EventDefinition("BlockEvent", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.ILOC, "Location"),
+				new FieldDefinition(Type.INTEGER, "Type"),
+		}));
+		eventDefs.add(new EventDefinition("EntitySpawnerNoMove", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.FLOC, "Location"),
+				new FieldDefinition(Type.STRING, "Creature"),
+				new FieldDefinition(Type.BOOL, "Super"),
+		}));
+		eventDefs.add(new EventDefinition("EntitySpawnerCompleteNMEvent", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.TASK, "NextIndex"),
+				new FieldDefinition(Type.STRING, "Events"),
+		}));
+		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.STRING, "All"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.INTEGER, "Exp"),
+				new FieldDefinition(Type.INTEGER, "Class Experience"),
+		}));
+		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.STRING, "All"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.INTEGER, "Exp"),
+				new FieldDefinition(Type.INTEGER, "Class Experience"),
+				new FieldDefinition(Type.INTEGER, "Cubes"),
+		}));
+		eventDefs.add(new EventDefinition("QuestEvent", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.TASK, "NextIndex"),
+		}));
+		eventDefs.add(new EventDefinition("SingleAreaEvent", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.TASK, "NextIndex"),
+				new FieldDefinition(Type.FLOC, "Location"),
+				new FieldDefinition(Type.FLOAT, "Radius"),
+		}));
+		eventDefs.add(new EventDefinition("ArrowEvent", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.FLOC, "Start"),
+				new FieldDefinition(Type.FLOC, "Vector"),
+		}));
+		eventDefs.add(new EventDefinition("CanEdit", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.FLOC, "Location"),
+				new FieldDefinition(Type.TASK, "NextIndex"),
+		}));
+		eventDefs.add(new EventDefinition("HealthEntitySpawn", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+				new FieldDefinition(Type.TASK, "NextIndex"),
+				new FieldDefinition(Type.FLOC, "Location"),
+				new FieldDefinition(Type.STRING, "Creature"),
+				new FieldDefinition(Type.INTEGER, "Health"),
+				new FieldDefinition(Type.BOOL, "Super"),
+		}));
+		eventDefs.add(new EventDefinition("CompleteQuestEvent", new FieldDefinition[] {
+				new FieldDefinition(Type.STRING, "Event"),
+				new FieldDefinition(Type.INTEGER, "ID"),
+				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.INTEGER, "Delay"),
+		}));
 		if (setupQuest(filename)) {
 //			for (Quester quester : party.getQuesters()) {
 //				quester.setQuest(this, world);
@@ -37,16 +165,16 @@ public class QuestParser {
 		}
 	}
 	
-	public QuestParser(String file, int id) {
-		if (setupQuest(file)) {
+//	public QuestParser(String file, int id) {
+//		if (setupQuest(file)) {
 //			if (id != -1) {
 //				for (Quester quester : party.getQuesters()) {
 //					quester.setQuest(this, world);
 //				}
 //				MineQuest.getEventQueue().addEvent(new QuestEvent(this, 100, id));
 //			}
-		}
-	}
+//		}
+//	}
 	
 	protected boolean setupQuest(String filename) {
 //		this.questers = party.getQuesters();
@@ -85,22 +213,35 @@ public class QuestParser {
 				while ((line = bis.readLine()) != null) {
 					number++;
 					String split[] = line.split(":");
-					if (split == null) split = new String[] {line};
-					parseLine(split);
+//					if (split == null) split = new String[] {line};
+					if (split != null && split.length > 1) { 
+						parseLine(split);
+					}
 				}
 			} catch (Exception e) {
-//				MineQuest.log("Unable to load Quest Problem on Line " + number);
-//				MineQuest.log("  " + line);
-//				try {
+				System.out.println("Unable to load Quest Problem on Line " + number);
+				System.out.println("  " + line);
+				e.printStackTrace();
+	
+				try {
 //					issueNextEvents(-1);
-//				} catch (Exception e1) {
-//					MineQuest.log("Unable to unload events properly");
-//				}
+				} catch (Exception e1) {
+					System.out.println("Unable to unload events properly");
+				}
 				return false;
 			}
 //
 //			if (world == null) {
 //				world = MineQuest.getSServer().getWorlds().get(0);
+			eventDefs.add(new EventDefinition("EntitySpawnerCompleteNMEvent", new FieldDefinition[] {
+					new FieldDefinition(Type.STRING, "Event"),
+					new FieldDefinition(Type.INTEGER, "ID"),
+					new FieldDefinition(Type.STRING, "EventName"),
+					new FieldDefinition(Type.INTEGER, "All"),
+					new FieldDefinition(Type.INTEGER, "Delay"),
+					new FieldDefinition(Type.INTEGER, "Exp"),
+					new FieldDefinition(Type.INTEGER, "Class Experience"),
+			}));
 //			}
 //			if (spawn == null) {
 //				spawn = world.getSpawnLocation();
@@ -133,6 +274,7 @@ public class QuestParser {
 	
 	private void parseLine(String[] split) throws Exception {
 		if (split[0].equals("Event")) {
+			createEvent(split);
 //			if (split[2].equals("R")) {
 //				events.add(RelativeEvent.newRelative(split, this));
 //			} else if (split[2].equals("T")) {
@@ -142,7 +284,7 @@ public class QuestParser {
 //			} else {
 //				createEvent(split);
 //			}
-		} else if (split[0].equals("PartyMinMax")) {
+//		} else if (split[0].equals("PartyMinMax")) {
 //			int min = Integer.parseInt(split[1]);
 //			int max = Integer.parseInt(split[2]);
 //			if (party.getQuesters().size() > max) {
@@ -156,24 +298,24 @@ public class QuestParser {
 //				throw new Exception();
 //			}
 		} else if (split[0].equals("Task")) {
-//			createTask(split, false);
+			createTask(split, false);
 		} else if (split[0].equals("RepeatingTask")) {
-//			createTask(split, true);
-		} else if (split[0].contains("World") || split[0].contains("Instance")) {
+			createTask(split, true);
+//		} else if (split[0].contains("World") || split[0].contains("Instance")) {
 //			createWorld(split);
-		} else if (split[0].equals("Spawn")) {
+//		} else if (split[0].equals("Spawn")) {
 //			double x = Double.parseDouble(split[1]);
 //			double y = Double.parseDouble(split[2]);
 //			double z = Double.parseDouble(split[3]);
 //			this.spawn = new Location(world, x, y, z);
-		} else if (split[0].equals("QuestArea")) {
+//		} else if (split[0].equals("QuestArea")) {
 //			start_x = Double.parseDouble(split[1]);
 //			start_y = Double.parseDouble(split[2]);
 //			start_z = Double.parseDouble(split[3]);
 //			end_x = Double.parseDouble(split[4]);
 //			end_y = Double.parseDouble(split[5]);
 //			end_z = Double.parseDouble(split[6]);
-		} else if (split[0].equals("NPC")) {
+//		} else if (split[0].equals("NPC")) {
 //			String name = split[1];
 //			Location location = new Location(world,
 //					Double.parseDouble(split[2]),
@@ -184,7 +326,7 @@ public class QuestParser {
 //			npcs.add(new NPCQuester(name, NPCMode.QUEST_INVULNERABLE, world, location));
 //			MineQuest.addQuester(npcs.get(npcs.size() - 1));
 //			MineQuest.getQuester(name).setQuest(this, world);
-		} else if (split[0].equals("NPCV")) {
+//		} else if (split[0].equals("NPCV")) {
 //			String name = split[1];
 //			Location location = new Location(world,
 //					Double.parseDouble(split[2]),
@@ -195,21 +337,21 @@ public class QuestParser {
 //			npcs.add(new NPCQuester(name, NPCMode.QUEST_VULNERABLE, world, location));
 //			MineQuest.addQuester(npcs.get(npcs.size() - 1));
 //			MineQuest.getQuester(name).setQuest(this, world);
-		} else if (split[0].equals("Target")) {
+//		} else if (split[0].equals("Target")) {
 //			targets.add(Target.newTarget(split, this));
-		} else if (split[0].equals("Edit")) {
+//		} else if (split[0].equals("Edit")) {
 //			addCanEdit(CanEdit.makeCanEdit(split, world));
-		} else if (split[0].equals("Name")) {
+//		} else if (split[0].equals("Name")) {
 //			name = split[1];
-		} else if (split[0].equals("Repeatable")) {
+//		} else if (split[0].equals("Repeatable")) {
 //			repeatable = Boolean.parseBoolean(split[1]);
-		} else if (split[0].equals("Reset")) {
+//		} else if (split[0].equals("Reset")) {
 //			reset = Boolean.parseBoolean(split[1]);
-		} else if (split[0].equals("NoMobs")) {
+//		} else if (split[0].equals("NoMobs")) {
 //			no_mobs = Boolean.parseBoolean(split[1]);
-		} else if (split[0].equals("EditMessage")) {
+//		} else if (split[0].equals("EditMessage")) {
 //			edit_message = split[1];
-		} else if (split[0].equals("AreaPreserve")) {
+//		} else if (split[0].equals("AreaPreserve")) {
 //			start_x = Double.parseDouble(split[1]);
 //			start_y = Double.parseDouble(split[2]);
 //			start_z = Double.parseDouble(split[3]);
@@ -219,90 +361,58 @@ public class QuestParser {
 //			Location start = new Location(world, start_x, start_y, start_z);
 //			Location end = new Location(world, end_x, end_y, end_z);
 //			areaPreserver = new AreaPreserver(world, start, end);
+		} else {
+			for (int i = 0; i < questDefs.size(); i++) {
+				if (questDefs.get(i).name.equals(split[0])) {
+					fields.add(new QuestLine(questDefs.get(i), split));
+					return;
+				}
+			}
+			System.out.println("Unhandled field: " + split[0]);
 		}
 	}
 
-	private void createWorld(String[] split) throws Exception {
-//		if (split[0].equals("World")) {
-//			World world = null;
-//			if (MineQuest.getSServer().getWorld(split[1]) == null) {
-//				if ((split.length == 2) || (split[2].equals("NORMAL"))) {
-//					world = MineQuest.getSServer().createWorld(split[1], Environment.NORMAL);
-//				} else {
-//					world = MineQuest.getSServer().createWorld(split[1], Environment.NETHER);
-//				}
-//			}
-//			
-//			teleport(party.getQuesterArray(), world);
-//		} else if (split[0].equals("LoadWorld")) {
-//			if (MineQuest.getSServer().getWorld(split[1]) == null) {
-//				deleteDir(new File(split[1]));
-//				copyDirectory(new File(split[2]), new File(split[1]));
-//				world = null;
-//				if (MineQuest.getSServer().getWorld(split[1]) == null) {
-//					if ((split.length == 3) || (split[3].equals("NORMAL"))) {
-//						world = MineQuest.getSServer().createWorld(split[1], Environment.NORMAL);
-//					} else {
-//						world = MineQuest.getSServer().createWorld(split[1], Environment.NETHER);
-//					}
-//				}
-//			} else {
-//				boolean flag = false;
-//				if ((split.length == 3) || (split[3].equals("NORMAL"))) {
-//					flag = true;
-//				}
-//				copyWorld(split[3], split[2], flag);
-//			}
-//		} else if (split[0].equals("Instance")) {
-//			int max = Integer.parseInt(split[1]);
-//			int i;
-//			for (i = 0; i < max; i++) {
-//				boolean flag = true;
-//				for (Quest quest : MineQuest.getQuests()) {
-//					if (quest.getWorld().getName().equals(split[2] + i)) {
-//						flag = false;
-//					}
-//				}
-//				if (flag) break;
-//			}
-//			if (i == max) {
-//				MineQuest.log("Instances Full - Unable to Start Quest");
-//				MineQuest.getEventQueue().addEvent(new MessageEvent(10, party, "Instances Full - Unable to Start Quest"));
-//			}
-////			split[2] = split[2] + i;
-////			if (MineQuest.getSServer().getWorld(split[2]) == null) {
-////				deleteDir(new File(split[2]));
-////				copyDirectory(new File(split[3]), new File(split[2]));
-//				world = null;
-////				if (MineQuest.getSServer().getWorld(split[2]) == null) {
-//					if ((split.length == 4) || (split[4].equals("NORMAL"))) {
-//						world = NewChunkRegionLoader.createWorld(split[3], Environment.NORMAL, i);
-////						world = MineQuest.getSServer().createWorld(split[2], Environment.NORMAL);
-//					} else {
-//						world = NewChunkRegionLoader.createWorld(split[3], Environment.NETHER, i);
-////						world = MineQuest.getSServer().createWorld(split[2], Environment.NETHER);
-//					}
-////				}
-////			} else {
-////				boolean flag = false;
-////				if ((split.length == 4) || (split[4].equals("NORMAL"))) {
-////					flag = true;
-////				}
-////				copyWorld(split[3], split[2], flag);
-////			}
-//		}
-//	}
-//	
-//	public void createEvent(String line[]) throws Exception {
-//		int id = Integer.parseInt(line[1]);
-//		String type = line[2];
-//		Event new_event;
+	private void createTask(String[] split, boolean b) throws Exception {
+		int tid = Integer.parseInt(split[1]);
+		Task task = getTask(tid);
+		String[] ids = split[2].split(",");
+		if (ids == null) {
+			ids = new String[] { split[2] };
+		}
+		for (String sid : ids) {
+			int id = Integer.parseInt(sid);
+			if (events.get(id) != null) {
+				task.add(events.get(id));
+			} else {
+				throw new Exception("Can't find event: " + id);
+			}
+		}
+//		System.out.println("Unhandled task: " + split[1]);
+	}
+
+	public void createEvent(String line[]) throws Exception {
+		int id = Integer.parseInt(line[1]);
+		String type = line[2];
+		EventLine newEvent;
+		
+		for (int i = 0; i < eventDefs.size(); i++) {
+			if (eventDefs.get(i).name.equals(type)) {
+				newEvent = new EventLine(eventDefs.get(i), line, id);
+				if (eventDefs.get(i).hasTask()) {
+					newEvent.setNextEvents(getTask(eventDefs.get(i).getTask(line)));
+				}
+				events.put(id, newEvent);
+				return;
+			}
+		}
+		
 //		LivingEntity entities[] = new LivingEntity[questers.size()];
 //		int i = 0;
 //		for (Quester quester : questers) {
 //			entities[i++] = quester.getPlayer();
 //		}
 //		
+//		System.out.println("Event: " + type);
 //		if (type.equals("AreaEvent")) {
 //			int delay = Integer.parseInt(line[3]);
 //			int index = Integer.parseInt(line[4]);
@@ -600,6 +710,7 @@ public class QuestParser {
 //			
 //			new_event = new QuestAvailableEvent(delay, quest, party);
 //		} else {
+			System.out.println("Unhandled event: " + type);
 //			MineQuest.log("Unknown Event Type: " + type);
 //			throw new Exception();
 //		}
@@ -608,7 +719,7 @@ public class QuestParser {
 ////		MineQuest.log("Added " + events.get(events.size() - 1).getName());
 //		new_event.setId(id);
 //		events.add(new_event);
-//	}
+	}
 //
 //	public void issueNextEvents(int index) {
 //		if (index == -1) {
@@ -657,21 +768,14 @@ public class QuestParser {
 //				task.issueEvents();
 //			}
 //		}
-	}
-
-//	public boolean canEdit(Quester quester, Block block) {
-//		int i;
-//		for (i = 0; i < edits.length; i++) {
-//			if (edits[i].canEdit(quester, block.getLocation())) {
-//				if (edits[i].getQuestIndex() >= -1) {
-//					issueNextEvents(edits[i].getQuestIndex());
-//				}
-//				return true;
-//			}
-//		}
-//
-//		quester.notify(edit_message);
-//
-//		return false;
 //	}
+
+	private Task getTask(int id) {
+		if (id < 0) return null;
+		if (tasks.get(id) == null) {
+			tasks.put(id, new Task(id, false));
+		}
+		
+		return tasks.get(id);
+	}
 }
