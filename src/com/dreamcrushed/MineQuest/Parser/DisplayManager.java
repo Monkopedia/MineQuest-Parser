@@ -1,29 +1,30 @@
 package com.dreamcrushed.MineQuest.Parser;
 
 import java.awt.Container;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 
 public class DisplayManager {
 	
 	private static JFrame frame;
-	private static TaskDisplay leftManager;
-	private static MainPage center;
+	private static TaskList leftManager;
+	private static TaskDisplay center;
 	private static int widths;
 	private static int heights;
 	private static int lsize;
+	private static QuestParser parser;
 	
 	public static void run(final QuestParser parser) {
 		widths = 800;
 		heights = 600;
 		lsize = 200;
 
-		center = new MainPage(parser);
-		leftManager = new TaskDisplay(parser, center, lsize, heights);
+		center = new TaskDisplay(parser);
+		leftManager = new TaskList(parser, center, lsize, heights);
+		DisplayManager.parser = parser;
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -54,6 +55,8 @@ public class DisplayManager {
 
 	public static void setDisplay(Container left, Container right, int lsize, int w, int h) {
         frame.setSize(w, h);
+        frame.setJMenuBar(MenuBarHandler.createMenu(parser));
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         //Create and set up the content pane.
         Container container = new JPanel();

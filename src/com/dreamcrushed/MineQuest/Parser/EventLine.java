@@ -1,5 +1,7 @@
 package com.dreamcrushed.MineQuest.Parser;
 
+import java.io.PrintStream;
+
 
 public class EventLine extends QuestLine {
 	protected EventDefinition eDefinition;
@@ -23,7 +25,17 @@ public class EventLine extends QuestLine {
 	}
 
 	public String getName() {
-		return id + ": " + eDefinition.name;
+		if (name != null) {
+			return name;
+		} else {
+			return id + ": " + eDefinition.name;
+		}
+	}
+	
+	@Override
+	public void print(PrintStream ps) {
+		fields[1] = id + "";
+		super.print(ps);
 	}
 
 }

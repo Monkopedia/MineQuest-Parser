@@ -1,5 +1,6 @@
 package com.dreamcrushed.MineQuest.Parser;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,25 @@ public class Task {
 
 	public void add(EventLine eventLine) {
 		events.add(eventLine);
+	}
+
+	public void print(PrintStream ps) {
+		if (name != null) {
+			ps.println("#" + name);
+		}
+		if (repeating) {
+			ps.print("RepeatingTask:" + id + ":");
+		} else {
+			ps.print("Task:" + id + ":");
+		}
+		
+		for (int i = 0; i < events.size(); i++) {
+			if (i > 0) {
+				ps.print(",");
+			}
+			ps.print(events.get(i).id);
+		}
+		ps.println();
 	}
 
 }

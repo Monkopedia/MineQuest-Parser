@@ -1,68 +1,38 @@
 package com.dreamcrushed.MineQuest.Parser;
 
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
-public class TaskDisplay extends JPanel {
+public class TaskDisplay extends BasePage {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel panel;
-	protected int w;
-	protected int h;
+	private QuestParser parser;
 
-	public TaskDisplay(final QuestParser parser, final MainPage center, int w, int h) {
-		w -= 20;
-		h -= 20;
-		this.w = w;
-		this.h = h;
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setLocation(10, 10);
-		scrollPane.setSize(w, h);
-		
-		panel = new JPanel(new GridLayout(0, 1));
-		panel.setLocation(25, 25);
-		panel.setSize(w, h);
-		panel.setBorder(BorderFactory.createLineBorder(Color.black));
-		scrollPane.setViewportView(panel);
-		add(scrollPane);
-		
-		for (int id : parser.tasks.keySet()) {
-			final Task task = parser.tasks.get(id);
-			JButton newPanel = new JButton(task.name);
-//			newPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-			newPanel.setSize(h - 20, 40);
-			newPanel.addActionListener(new ActionListener() {
+	public TaskDisplay(QuestParser parser) {
+		this.parser = parser;
+		setLayout(null);
+		show(parser.tasks.get(0));
+	}
+
+	public void show(Task task) {
+		this.removeAll();
+		y = 0;
+		label(task.name + ":", 0, y, 300, 25);
+		System.out.println(task.name + ":");
+		for (final EventLine line : task.events) {
+			button(line.getName(), new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					center.show(task);
+					new EventDisplay(line, parser);
+					System.out.println("Click");
 				}
-			});
-			panel.add(newPanel);
+			}, 300, 25);
+			System.out.println(line.getName());
 		}
-		
-//		JButton button = new JButton("Add New");
-//		button.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//
-//			}
-//		});
-//		button.setLocation(25, 525);
-//		button.setSize(250, 25);
-//		add(button);
-		
-        this.setLayout(null);
-        this.setSize(300, 575);
-        this.setPreferredSize(this.getSize());
+		repaint();
 	}
 
 }
