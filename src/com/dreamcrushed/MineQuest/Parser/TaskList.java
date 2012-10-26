@@ -40,6 +40,7 @@ public class TaskList extends JPanel {
 			JButton newPanel = new JButton(task.name);
 //			newPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 			newPanel.setSize(h - 20, 40);
+			task.setHandler(newPanel);
 			newPanel.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {

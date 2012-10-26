@@ -3,6 +3,8 @@ package com.dreamcrushed.MineQuest.Parser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JCheckBox;
+
 
 public class TaskDisplay extends BasePage {
 	/**
@@ -17,10 +19,24 @@ public class TaskDisplay extends BasePage {
 		show(parser.tasks.get(0));
 	}
 
-	public void show(Task task) {
+	public void show(final Task task) {
 		this.removeAll();
 		y = 0;
-		label(task.name + ":", 0, y, 300, 25);
+		button(task.name + ":", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new TaskNameChanger(task, TaskDisplay.this);
+			}
+		}, 0, 300, 25);
+		y = 0;
+		final JCheckBox check = checkBox("Repeatable", task.repeating, 300, 0, 300, 35);
+		check.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				task.repeating = !task.repeating;
+			}
+		});
+		
 		System.out.println(task.name + ":");
 		for (final EventLine line : task.events) {
 			button(line.getName(), new ActionListener() {				
@@ -34,5 +50,4 @@ public class TaskDisplay extends BasePage {
 		}
 		repaint();
 	}
-
 }

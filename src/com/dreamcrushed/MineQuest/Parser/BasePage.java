@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -77,6 +78,7 @@ public class BasePage extends JPanel {
 		display.setLocation(x, y);
 		display.setSize(sx, sy);
 		this.y += sy;
+		add(display);
 		return display;
 	}
 	
@@ -96,6 +98,15 @@ public class BasePage extends JPanel {
 		add(label);
 		this.y += sy;
 		return label;
+	}
+	
+	public JCheckBox checkBox(String l, boolean state, int x, int y, int sx, int sy) {
+		final JCheckBox checkBox = new JCheckBox(l, state);
+		checkBox.setLocation(x, y);
+		checkBox.setSize(sx, sy);
+		add(checkBox);
+		this.y += sy;
+		return checkBox;
 	}
 
 	protected void addPreviousNext(int width) {

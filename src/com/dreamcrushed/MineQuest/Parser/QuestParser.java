@@ -115,7 +115,7 @@ public class QuestParser {
 				new FieldDefinition(Type.STRING, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.FLOC, "Start"),
-				new FieldDefinition(Type.FLOC, "Vector"),
+				new FieldDefinition(Type.FVEC, "Direction"),
 		}));
 		eventDefs.add(new EventDefinition("CanEdit", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),

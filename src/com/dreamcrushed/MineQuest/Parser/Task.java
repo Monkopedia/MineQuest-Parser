@@ -4,11 +4,14 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+
 public class Task {
 	public int id;
 	public String name;
 	protected List<EventLine> events;
 	protected boolean repeating;
+	private JButton callback;
 
 	public Task(int id, boolean repeating) {
 		this.id = id;
@@ -38,6 +41,17 @@ public class Task {
 			ps.print(events.get(i).id);
 		}
 		ps.println();
+	}
+
+	public void setHandler(JButton newPanel) {
+		this.callback = newPanel;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+		if (callback != null) {
+			callback.setText(name);
+		}
 	}
 
 }
