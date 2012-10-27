@@ -43,7 +43,7 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("AreaEvent", new FieldDefinition[] {
 					new FieldDefinition(Type.STRING, "Event"),
 					new FieldDefinition(Type.INTEGER, "ID"),
-					new FieldDefinition(Type.STRING, "EventName"),
+					new FieldDefinition(Type.EVENTTYPE, "EventName"),
 					new FieldDefinition(Type.INTEGER, "Delay"),
 					new FieldDefinition(Type.TASK, "NextIndex"),
 					new FieldDefinition(Type.FLOC, "Location"),
@@ -52,7 +52,7 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("BlockEvent", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.ILOC, "Location"),
 				new FieldDefinition(Type.INTEGER, "Type"),
@@ -60,7 +60,7 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("EntitySpawnerNoMove", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.FLOC, "Location"),
 				new FieldDefinition(Type.STRING, "Creature"),
@@ -69,7 +69,7 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("EntitySpawnerCompleteNMEvent", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.TASK, "NextIndex"),
 				new FieldDefinition(Type.STRING, "Events"),
@@ -77,7 +77,7 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.STRING, "All"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.INTEGER, "Exp"),
@@ -86,7 +86,7 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.STRING, "All"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.INTEGER, "Exp"),
@@ -96,14 +96,14 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("QuestEvent", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.TASK, "NextIndex"),
 		}));
 		eventDefs.add(new EventDefinition("SingleAreaEvent", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.TASK, "NextIndex"),
 				new FieldDefinition(Type.FLOC, "Location"),
@@ -112,7 +112,7 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("ArrowEvent", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.FLOC, "Start"),
 				new FieldDefinition(Type.FVEC, "Direction"),
@@ -120,14 +120,14 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("CanEdit", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.FLOC, "Location"),
 				new FieldDefinition(Type.TASK, "NextIndex"),
 		}));
 		eventDefs.add(new EventDefinition("HealthEntitySpawn", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 				new FieldDefinition(Type.TASK, "NextIndex"),
 				new FieldDefinition(Type.FLOC, "Location"),
@@ -138,7 +138,7 @@ public class QuestParser {
 		eventDefs.add(new EventDefinition("CompleteQuestEvent", new FieldDefinition[] {
 				new FieldDefinition(Type.STRING, "Event"),
 				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.STRING, "EventName"),
+				new FieldDefinition(Type.EVENTTYPE, "EventName"),
 				new FieldDefinition(Type.INTEGER, "Delay"),
 		}));
 		if (filename != null) {

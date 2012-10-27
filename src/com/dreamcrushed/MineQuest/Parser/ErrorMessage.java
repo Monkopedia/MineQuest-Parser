@@ -31,10 +31,10 @@ public class ErrorMessage {
 		final JFrame frame = new JFrame("Error");
 //		final Popup popup = PopupFactory.getSharedInstance().getPopup(parent, panel, x, y);
 //		popup.show();
-		frame.setLocation(x, y);
 		frame.setContentPane(panel);
 		frame.setSize(panel.getSize());
 		frame.pack();
+		frame.setLocation(x - width/2, y - panel.getHeight()/2);
 		frame.setVisible(true);
 		
 		button.addActionListener(new ActionListener() {

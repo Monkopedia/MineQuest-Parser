@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -18,19 +19,39 @@ public class EventDisplay extends BasePage {
 	private int index;
 	protected JTextField[] textFields;
 	private EventLine line;
+	private QuestParser parser;
+	private TaskDisplay display;
+	private EventLine orig;
 
-	public EventDisplay(final EventLine line, final QuestParser parser, final TaskDisplay display) {
-		this.line = line;
-		y = 25;
-		this.index = 0;
+	public EventDisplay(final EventLine orig, final QuestParser parser, final TaskDisplay display, int xL, int yL) throws Exception {
+		this.line = new EventLine(orig);
+		this.orig = orig;
+		this.parser = parser;
+		this.display = display;
 		this.frame = new JFrame("Event Config");
 
 		frame.setSize(800, 600);
 		setLayout(null);
 		setSize(800, 600);
+		
+		setFields();
+
+		pack();
+        frame.setContentPane(this);
+        frame.setLocation(xL, yL);
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+	}
+	
+	public void setFields() {
+		removeAll();
+
+		y = 25;
 		textFields = new JTextField[line.fields.length - 1];
 
 		int x = 500;
+		this.index = 0;
 		textFields[index] = textField(line.getName(), 150, y, x, 25);
 		index++;
 		y -= 25;
@@ -60,6 +81,7 @@ public class EventDisplay extends BasePage {
 						}
 					}
 				}
+				orig.copy(line);
 				display.show(display.currentTask);
 				frame.dispose();
 			}
@@ -67,29 +89,51 @@ public class EventDisplay extends BasePage {
 		button.setLocation(0, y);
 		button.setSize(650, 25);
 		add(button);
-		pack();
 
-        frame.setContentPane(this);
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+		frame.invalidate();
+		revalidate();
+		repaint();
 	}
 
 	private void showField(FieldDefinition fDef) {
 		int ly = y;
 		int x = 500 / fDef.field.length;
-		for (int i = 0; i < fDef.field.length; i++) {
-			textFields[index] = textField(line.fields[index+1], x * (i) + 150, ly, x, 25);
+
+		if ((fDef.field != Type.EVENTTYPE)) {
+			for (int i = 0; i < fDef.field.length; i++) {
+				textFields[index] = textField(line.fields[index+1], x * (i) + 150, ly, x, 25);
+				index++;
+				y = ly;
+			}
+		} else {
+			final String[] strings = new String[parser.eventDefs.size()];
+			int ind = 0;
+			for (int i = 0; i < strings.length; i++) {
+				strings[i] = parser.eventDefs.get(i).name;
+				if (line.fields[index + 1].equals(strings[i])) ind = i;
+			}
+			final int find = index + 1;
+			textFields[index] = new JTextField(line.fields[index+1]);
 			index++;
-			y = ly;
+			final JComboBox list = new JComboBox(strings);
+			list.setLocation(150, ly);
+			list.setSize(500, 25);
+			list.setSelectedIndex(ind);
+			list.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					line.fields[find] = strings[list.getSelectedIndex()];
+					line.setDefinition(parser.eventDefs.get(list.getSelectedIndex()), parser);
+					setFields();
+				}
+			});
+			add(list);
 		}
 		label(fDef.name + ":");
 	}
 
 	protected void pack() {
-        //Create and set up the content pane.t
-        this.setLayout(null);
+        //Create and set up the content pane.
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //        this.setSize(500, 300);
         this.setPreferredSize(this.getSize());

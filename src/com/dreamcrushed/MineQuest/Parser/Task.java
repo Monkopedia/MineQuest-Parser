@@ -50,7 +50,11 @@ public class Task {
 	public void setName(String name) {
 		this.name = name;
 		if (callback != null) {
-			callback.setText(name);
+			String n = this.name;
+			if (n.length() > 25) {
+				n = n.substring(0, 22) + "...";
+			}
+			callback.setText(n);
 		}
 	}
 

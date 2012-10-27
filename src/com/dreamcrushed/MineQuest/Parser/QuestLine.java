@@ -14,6 +14,10 @@ public class QuestLine {
 		this.definition = definition;
 		this.fields = fields;
 	}
+	
+	public String getName() {
+		return definition.name;
+	}
 
 	public void print(PrintStream ps) {
 		if (name != null) {

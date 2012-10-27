@@ -9,43 +9,47 @@ import javax.swing.WindowConstants;
 
 public class DisplayManager {
 	
-	private static JFrame frame;
-	private static TaskList leftManager;
-	private static TaskDisplay center;
-	private static int widths;
-	private static int heights;
-	private static int lsize;
-	private static QuestParser parser;
+	private JFrame frame;
+	private TaskList leftManager;
+	private TaskDisplay taskDisplay;
+	private FieldDisplay fieldDisplay;
+	private int widths;
+	private int heights;
+	private int lsize;
+	private QuestParser parser;
 	
-	public static void run(final QuestParser parser) {
+	public static void openParser(final QuestParser parser) {
+		new DisplayManager(parser);
+	}
+	
+	public DisplayManager(final QuestParser parser) {
 		widths = 800;
 		heights = 600;
 		lsize = 300;
 
-		center = new TaskDisplay(parser);
-		leftManager = new TaskList(parser, center, lsize, heights);
-		DisplayManager.parser = parser;
+		taskDisplay = new TaskDisplay(parser, this);
+		fieldDisplay = new FieldDisplay(parser, this);
+		leftManager = new TaskList(parser, taskDisplay, fieldDisplay, lsize, heights);
+		this.parser = parser;
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI("testfile");
-
-        		center.show(parser.tasks.get(0));
+                createAndShowGUI();
+                
+                fieldDisplay.show();
             }
         });
 	}
 	
-    private static void createAndShowGUI(String filename) {
+    private void createAndShowGUI() {
         //Create and set up the window.
         frame = new JFrame("MineQuest Quest Writer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        display();
     }
     
-    private static void display() {
+    public void display(Container right) {
 //		try {
-			setDisplay(leftManager, center, lsize, widths, heights);
+			setDisplay(leftManager, right, lsize, widths, heights);
 //		} catch (InstantiationException e) {
 //			e.printStackTrace();
 //		} catch (IllegalAccessException e) {
@@ -53,7 +57,7 @@ public class DisplayManager {
 //		}
 	}
 
-	public static void setDisplay(Container left, Container right, int lsize, int w, int h) {
+	public void setDisplay(Container left, Container right, int lsize, int w, int h) {
         frame.setSize(w, h);
         frame.setJMenuBar(MenuBarHandler.createMenu(parser));
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -78,4 +82,20 @@ public class DisplayManager {
         frame.pack();
         frame.setVisible(true);
     }
+
+	public int getX() {
+		return frame.getX();
+	}
+
+	public int getWidth() {
+		return frame.getWidth();
+	}
+
+	public int getY() {
+		return frame.getY();
+	}
+
+	public int getHeight() {
+		return frame.getHeight();
+	}
 }

@@ -37,7 +37,7 @@ public class MenuBarHandler {
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				DisplayManager.run(new QuestParser(null));
+				DisplayManager.openParser(new QuestParser(null));
 			}
 		});
 		menu.add(menuItem);
@@ -55,7 +55,7 @@ public class MenuBarHandler {
 
 		        if (returnVal == JFileChooser.APPROVE_OPTION) {
 		            File file = fc.getSelectedFile();
-		            DisplayManager.run(new QuestParser(file.getAbsolutePath()));
+		            DisplayManager.openParser(new QuestParser(file.getAbsolutePath()));
 		        }
 			}
 		});

@@ -17,9 +17,10 @@ public class TaskNameChanger extends JPanel {
 	private JFrame frame;
 	private int y;
 
-	public TaskNameChanger(final Task task, final TaskDisplay display) {
+	public TaskNameChanger(final Task task, final TaskDisplay display, int x, int yL) {
 		y = 25;
 		this.frame = new JFrame("Set Task Name");
+		frame.setLocation(x - 150, yL - 75);
 
 		frame.setSize(300, 150);
 		setLayout(null);
