@@ -19,7 +19,7 @@ public class EventDisplay extends BasePage {
 	protected JTextField[] textFields;
 	private EventLine line;
 
-	public EventDisplay(final EventLine line, QuestParser parser) {
+	public EventDisplay(final EventLine line, final QuestParser parser, final TaskDisplay display) {
 		this.line = line;
 		y = 25;
 		this.index = 0;
@@ -31,7 +31,7 @@ public class EventDisplay extends BasePage {
 		textFields = new JTextField[line.fields.length - 1];
 
 		int x = 500;
-		textFields[index] = textField(line.name, 150, y, x, 25);
+		textFields[index] = textField(line.getName(), 150, y, x, 25);
 		index++;
 		y -= 25;
 		label("Name");
@@ -46,17 +46,21 @@ public class EventDisplay extends BasePage {
 			public void actionPerformed(ActionEvent arg0) {
 				index = 0;
 				line.name = textFields[0].getText();
+				index++;
 				for (int i = 2; i < line.eDefinition.fields.length; i++) {
 					FieldDefinition fDef = line.eDefinition.fields[i];
 					for (int j = 0; j < fDef.field.length; j++) {
 						if (fDef.field.goodValue(textFields[index].getText())) {
 							line.fields[index+1] = textFields[index].getText();
+							index++;
 						} else {
-							// TODO popup here with error
+							System.out.println(fDef.name + " must be " + fDef.field.getFieldTypes() + "\n" + textFields[index].getText() + " is not");
+							new ErrorMessage(fDef.name + " must be " + fDef.field.getFieldTypes(), 200, EventDisplay.this, getX() + getWidth()/2, getY() + getHeight()/2);
 							return;
 						}
 					}
 				}
+				display.show(display.currentTask);
 				frame.dispose();
 			}
 		});

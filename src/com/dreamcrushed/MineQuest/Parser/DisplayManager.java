@@ -20,7 +20,7 @@ public class DisplayManager {
 	public static void run(final QuestParser parser) {
 		widths = 800;
 		heights = 600;
-		lsize = 200;
+		lsize = 300;
 
 		center = new TaskDisplay(parser);
 		leftManager = new TaskList(parser, center, lsize, heights);
