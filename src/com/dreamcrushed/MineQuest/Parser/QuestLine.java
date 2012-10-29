@@ -15,6 +15,14 @@ public class QuestLine {
 		this.fields = fields;
 	}
 	
+	public QuestLine(QuestLine orig) throws Exception {
+		this.name = orig.name;
+		this.definition = orig.definition;
+		for (int i = 0; i < fields.length; i++) {
+			fields[i] = orig.fields[i];
+		}
+	}
+	
 	public String getName() {
 		return definition.name;
 	}
@@ -30,5 +38,14 @@ public class QuestLine {
 			ps.print(fields[i]);
 		}
 		ps.println();
+	}
+
+	public void copy(QuestLine orig) {
+		this.fields = new String[orig.fields.length];
+		this.definition = orig.definition;
+		this.name = orig.name;
+		for (int i = 0; i < fields.length; i++) {
+			fields[i] = orig.fields[i];
+		}
 	}
 }

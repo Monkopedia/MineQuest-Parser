@@ -17,6 +17,7 @@ public enum Type {
 	EVENTLIST(1),
 	TASKLIST(1),
 	LONGLOC(5),
+	QUESTFIELD(1),
 	;
 	
 	final public int length;

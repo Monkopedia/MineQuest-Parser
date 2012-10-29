@@ -17,12 +17,8 @@ public class EventLine extends QuestLine {
 	}
 
 	public EventLine(EventLine orig) throws Exception {
-		super(orig.definition, new String[orig.fields.length]);
-		this.name = orig.name;
+		super(orig);
 		this.id = orig.id;
-		for (int i = 0; i < fields.length; i++) {
-			fields[i] = orig.fields[i];
-		}
 		this.eDefinition = orig.eDefinition;
 	}
 
@@ -78,15 +74,13 @@ public class EventLine extends QuestLine {
 		}
 	}
 
-	public void copy(EventLine orig) {
-		this.fields = new String[orig.fields.length];
-		this.definition = orig.definition;
-		this.name = orig.name;
-		this.id = orig.id;
-		for (int i = 0; i < fields.length; i++) {
-			fields[i] = orig.fields[i];
+	@Override
+	public void copy(QuestLine orig) {
+		super.copy(orig);
+		if (orig instanceof EventLine) {
+			this.id = ((EventLine)orig).id;
+			this.eDefinition = ((EventLine)orig).eDefinition;
 		}
-		this.eDefinition = orig.eDefinition;
 	}
 
 }
