@@ -40,7 +40,7 @@ public class TaskList extends JPanel {
 		newPanel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				fieldDisplay.show();
+				fieldDisplay.show((Task)null);
 			}
 		});
 		panel.add(newPanel);

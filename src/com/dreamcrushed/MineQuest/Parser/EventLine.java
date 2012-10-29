@@ -46,18 +46,8 @@ public class EventLine extends QuestLine {
 	}
 
 	public void setDefinition(EventDefinition eventDefinition, QuestParser parser) {
-		String[] newFields = new String[eventDefinition.getLength()];
-		for (int i = 0; (i < newFields.length); i++) {
-			if (i < fields.length) {
-				newFields[i] = fields[i];
-			} else {
-				newFields[i] = "";
-			}
-		}
-		this.fields = newFields;
-		
+		super.setDefinition(eventDefinition);
 		this.eDefinition = eventDefinition;
-		this.definition = eventDefinition;
 		
 		int i = 0;
 		for (FieldDefinition fDef : eventDefinition.fields) {

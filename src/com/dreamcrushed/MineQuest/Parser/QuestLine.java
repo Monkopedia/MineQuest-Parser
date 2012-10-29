@@ -18,9 +18,24 @@ public class QuestLine {
 	public QuestLine(QuestLine orig) throws Exception {
 		this.name = orig.name;
 		this.definition = orig.definition;
+		this.fields = new String[orig.fields.length];
 		for (int i = 0; i < fields.length; i++) {
 			fields[i] = orig.fields[i];
 		}
+	}
+
+	public void setDefinition(QuestDefinition questDefinition) {
+		String[] newFields = new String[questDefinition.getLength()];
+		for (int i = 0; (i < newFields.length); i++) {
+			if (i < fields.length) {
+				newFields[i] = fields[i];
+			} else {
+				newFields[i] = "";
+			}
+		}
+		this.fields = newFields;
+		
+		this.definition = questDefinition;
 	}
 	
 	public String getName() {

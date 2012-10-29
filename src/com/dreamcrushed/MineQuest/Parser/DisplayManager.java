@@ -36,7 +36,7 @@ public class DisplayManager {
             public void run() {
                 createAndShowGUI();
                 
-                fieldDisplay.show();
+                fieldDisplay.show(null);
             }
         });
 	}

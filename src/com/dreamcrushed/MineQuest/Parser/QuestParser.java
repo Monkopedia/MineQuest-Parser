@@ -24,19 +24,19 @@ public class QuestParser {
 	
 	public QuestParser(String filename) {
 		questDefs.add(new QuestDefinition("QuestArea", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "FieldName"),
+				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
 				new FieldDefinition(Type.ILOC, "Start"),
 				new FieldDefinition(Type.ILOC, "End"),
 		}));
 		questDefs.add(new QuestDefinition("Instance", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "FieldName"),
+				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
 				new FieldDefinition(Type.INTEGER, "MaxInstances"),
 				new FieldDefinition(Type.STRING, "InstanceName"),
 				new FieldDefinition(Type.STRING, "OriginalName"),
 				new FieldDefinition(Type.STRING, "Type"),
 		}));
 		questDefs.add(new QuestDefinition("Spawn", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "FieldName"),
+				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
 				new FieldDefinition(Type.FLOC, "Location"),
 		}));
 

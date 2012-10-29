@@ -15,10 +15,10 @@ public class TaskDisplay extends BasePage {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private QuestParser parser;
+	protected static final long serialVersionUID = 1L;
+	protected QuestParser parser;
 	public Task currentTask;
-	private DisplayManager manager;
+	protected DisplayManager manager;
 
 	public TaskDisplay(QuestParser parser, DisplayManager manager) {
 		this.parser = parser;
@@ -62,7 +62,7 @@ public class TaskDisplay extends BasePage {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						new EventDisplay(line, parser, TaskDisplay.this, manager.getX(), manager.getY());
+						new LineDisplay(line, parser, TaskDisplay.this, manager.getX(), manager.getY());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

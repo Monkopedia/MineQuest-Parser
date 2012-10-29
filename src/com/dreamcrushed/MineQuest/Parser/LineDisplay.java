@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-public class EventDisplay extends BasePage {
+public class LineDisplay extends BasePage {
 
 	/**
 	 * 
@@ -26,9 +26,16 @@ public class EventDisplay extends BasePage {
 	private TaskDisplay display;
 	private QuestLine orig;
 	private boolean createTask;
+	private int startIndex;
+	private int ioff;
 
-	public EventDisplay(final QuestLine orig, final QuestParser parser, final TaskDisplay display, int xL, int yL) throws Exception {
-		this.line = new QuestLine(orig);
+	public LineDisplay(final QuestLine orig, final QuestParser parser,
+			final TaskDisplay display, int xL, int yL) throws Exception {
+		if (orig instanceof EventLine) {
+			this.line = new EventLine((EventLine) orig);
+		} else {
+			this.line = new QuestLine(orig);
+		}
 		this.orig = orig;
 		this.parser = parser;
 		this.display = display;
@@ -38,31 +45,39 @@ public class EventDisplay extends BasePage {
 		frame.setSize(800, 600);
 		setLayout(null);
 		setSize(800, 600);
-		
+
 		setFields();
 
 		pack();
-        frame.setContentPane(this);
-        frame.setLocation(xL, yL);
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+		frame.setContentPane(this);
+		frame.setLocation(xL, yL);
+		// Display the window.
+		frame.pack();
+		frame.setVisible(true);
 	}
-	
+
 	public void setFields() {
 		removeAll();
 
 		y = 25;
-		textFields = new JTextField[line.fields.length - 1];
 
 		int x = 500;
 		this.index = 0;
-		textFields[index] = textField(line.getName(), 150, y, x, 25);
-		index++;
-		y -= 25;
-		label("Name");
+		this.startIndex = 0;
+		if (line instanceof EventLine) {
+			textFields[index] = textField(line.getName(), 150, y, x, 25);
+			index++;
+			y -= 25;
+			label("Name");
+			startIndex = 2;
+			textFields = new JTextField[line.fields.length - 1];
+			this.ioff = 1;
+		} else {
+			textFields = new JTextField[line.fields.length];
+			this.ioff = 0;
+		}
 
-		for (int i = 2; i < line.definition.fields.length; i++) {
+		for (int i = startIndex; i < line.definition.fields.length; i++) {
 			showField(line.definition.fields[i]);
 		}
 
@@ -73,22 +88,29 @@ public class EventDisplay extends BasePage {
 				index = 0;
 				line.name = textFields[0].getText();
 				index++;
-				for (int i = 2; i < line.definition.fields.length; i++) {
+				for (int i = startIndex; i < line.definition.fields.length; i++) {
 					FieldDefinition fDef = line.definition.fields[i];
 					for (int j = 0; j < fDef.field.length; j++) {
 						if (fDef.field.goodValue(textFields[index].getText())) {
-							line.fields[index+1] = textFields[index].getText();
-							System.out.println("Setting " + fDef.name + " to " + line.fields[index+1]);
+							line.fields[index + ioff] = textFields[index]
+									.getText();
+							System.out.println("Setting " + fDef.name + " to "
+									+ line.fields[index + ioff]);
 							index++;
 						} else {
-							System.out.println(fDef.name + " must be " + fDef.field.getFieldTypes() + "\n" + textFields[index].getText() + " is not");
-							new ErrorMessage(fDef.name + " must be " + fDef.field.getFieldTypes(), 200, EventDisplay.this, getX() + getWidth()/2, getY() + getHeight()/2);
+							System.out.println(fDef.name + " must be "
+									+ fDef.field.getFieldTypes() + "\n"
+									+ textFields[index].getText() + " is not");
+							new ErrorMessage(fDef.name + " must be "
+									+ fDef.field.getFieldTypes(), 200,
+									LineDisplay.this, getX() + getWidth() / 2,
+									getY() + getHeight() / 2);
 							return;
 						}
 					}
 				}
 				if (createTask) {
-					
+
 				}
 				orig.copy(line);
 				display.show(display.currentTask);
@@ -108,21 +130,50 @@ public class EventDisplay extends BasePage {
 		int ly = y;
 		int x = 500 / fDef.field.length;
 
-		if ((fDef.field != Type.EVENTTYPE) && (fDef.field != Type.TASK)) {
+		if ((fDef.field != Type.EVENTTYPE) && (fDef.field != Type.TASK)
+				&& (fDef.field != Type.QUESTFIELD)) {
 			for (int i = 0; i < fDef.field.length; i++) {
-				textFields[index] = textField(line.fields[index+1], x * (i) + 150, ly, x, 25);
+				textFields[index] = textField(line.fields[index + ioff], x * (i)
+						+ 150, ly, x, 25);
 				index++;
 				y = ly;
 			}
+		} else if (fDef.field == Type.QUESTFIELD) {
+			final String[] strings = new String[parser.questDefs.size()];
+			int ind = 0;
+			for (int i = 0; i < strings.length; i++) {
+				strings[i] = parser.questDefs.get(i).name;
+				if (line.fields[index + ioff].equals(strings[i]))
+					ind = i;
+			}
+			final int find = index + ioff;
+			textFields[index] = new JTextField(line.fields[index + ioff]);
+			index++;
+			final JComboBox list = new JComboBox(strings);
+			list.setLocation(150, ly);
+			list.setSize(500, 25);
+			list.setSelectedIndex(ind);
+			list.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					line.fields[find] = strings[list.getSelectedIndex()];
+					textFields[find - ioff].setText(line.fields[find]);
+					line.setDefinition(parser.questDefs.get(list
+							.getSelectedIndex()));
+					setFields();
+				}
+			});
+			add(list);
 		} else if (fDef.field == Type.EVENTTYPE) {
 			final String[] strings = new String[parser.eventDefs.size()];
 			int ind = 0;
 			for (int i = 0; i < strings.length; i++) {
 				strings[i] = parser.eventDefs.get(i).name;
-				if (line.fields[index + 1].equals(strings[i])) ind = i;
+				if (line.fields[index + ioff].equals(strings[i]))
+					ind = i;
 			}
-			final int find = index + 1;
-			textFields[index] = new JTextField(line.fields[index+1]);
+			final int find = index + ioff;
+			textFields[index] = new JTextField(line.fields[index + ioff]);
 			index++;
 			final JComboBox list = new JComboBox(strings);
 			list.setLocation(150, ly);
@@ -133,7 +184,9 @@ public class EventDisplay extends BasePage {
 				public void actionPerformed(ActionEvent e) {
 					line.fields[find] = strings[list.getSelectedIndex()];
 					textFields[find - 1].setText(line.fields[find]);
-					((EventLine)line).setDefinition(parser.eventDefs.get(list.getSelectedIndex()), parser);
+					((EventLine) line).setDefinition(
+							parser.eventDefs.get(list.getSelectedIndex()),
+							parser);
 					setFields();
 				}
 			});
@@ -147,11 +200,12 @@ public class EventDisplay extends BasePage {
 			for (int tid : keys) {
 				strings[i] = tid + " " + parser.tasks.get(tid).name;
 				tids.add(tid);
-				if (line.fields[index + 1].equals(tid + "")) ind = i;
+				if (line.fields[index + ioff].equals(tid + ""))
+					ind = i;
 				i++;
 			}
-			final int find = index + 1;
-			textFields[index] = new JTextField(line.fields[index+1]);
+			final int find = index + ioff;
+			textFields[index] = new JTextField(line.fields[index + ioff]);
 			index++;
 			final JComboBox list = new JComboBox(strings);
 			list.setLocation(150, ly);
@@ -170,14 +224,14 @@ public class EventDisplay extends BasePage {
 	}
 
 	protected void pack() {
-        //Create and set up the content pane.
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-//        this.setSize(500, 300);
-        this.setPreferredSize(this.getSize());
-        frame.setContentPane(this);
+		// Create and set up the content pane.
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		// this.setSize(500, 300);
+		this.setPreferredSize(this.getSize());
+		frame.setContentPane(this);
 
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+		// Display the window.
+		frame.pack();
+		frame.setVisible(true);
 	}
 }

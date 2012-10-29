@@ -7,23 +7,19 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
-public class FieldDisplay extends BasePage {
+public class FieldDisplay extends TaskDisplay {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private QuestParser parser;
-	private DisplayManager manager;
+	private static final long serialVersionUID = 7201742770929707586L;
 
 	public FieldDisplay(QuestParser parser, DisplayManager manager) {
-		this.parser = parser;
-		setLayout(null);
-//		show(parser.tasks.get(0));
-		this.manager = manager;
+		super(parser, manager);
 	}
 
-	public void show() {
+	@Override
+	public void show(final Task task) {
 		this.removeAll();
 		y = 5;
 		JLabel l = label("Quest Parameters: ", 0, y, 300, 25);
@@ -35,7 +31,12 @@ public class FieldDisplay extends BasePage {
 			button(line.getName(), new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-//					new EventDisplay(line, parser, TaskDisplay.this);
+					try {
+						new LineDisplay(line, parser, FieldDisplay.this, manager.getX(), manager.getY());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					System.out.println("Click");
 				}
 			}, 300, 25);
