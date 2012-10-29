@@ -21,6 +21,13 @@ public class EventLine extends QuestLine {
 		this.id = orig.id;
 		this.eDefinition = orig.eDefinition;
 	}
+	
+	public EventLine(EventDefinition definition, int id) {
+		super(definition);
+		this.eDefinition = definition;
+		this.nextEvents = null;
+		this.id = id;
+	}
 
 	public Task getNextEvents() {
 		return nextEvents;

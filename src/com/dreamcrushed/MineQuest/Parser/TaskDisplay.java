@@ -72,6 +72,15 @@ public class TaskDisplay extends BasePage {
 		button("Add Event", new ActionListener() {				
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					EventLine line = new EventLine(parser.eventDefs.get(0), parser.allocateEventId());
+					parser.events.put(line.id, line);
+					task.events.add(line);
+					show(currentTask);
+					new LineDisplay(line, parser, TaskDisplay.this, manager.getX(), manager.getY());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}, 300, 25);
 		manager.display(this);

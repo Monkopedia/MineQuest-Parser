@@ -65,12 +65,12 @@ public class LineDisplay extends BasePage {
 		this.index = 0;
 		this.startIndex = 0;
 		if (line instanceof EventLine) {
+			textFields = new JTextField[line.fields.length - 1];
 			textFields[index] = textField(line.getName(), 150, y, x, 25);
 			index++;
 			y -= 25;
 			label("Name");
 			startIndex = 2;
-			textFields = new JTextField[line.fields.length - 1];
 			this.ioff = 1;
 		} else {
 			textFields = new JTextField[line.fields.length];
@@ -83,13 +83,24 @@ public class LineDisplay extends BasePage {
 
 		JButton button = new JButton("Done");
 		button.addActionListener(new ActionListener() {
+			private int newId;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				index = 0;
-				line.name = textFields[0].getText();
-				index++;
+				if (line instanceof EventLine) {
+					line.name = textFields[0].getText();
+					index++;
+				}
+				if (createTask) {
+					newId = parser.allocateTaskId();
+					parser.tasks.put(newId, new Task(newId, false));
+				}
 				for (int i = startIndex; i < line.definition.fields.length; i++) {
 					FieldDefinition fDef = line.definition.fields[i];
+					if (fDef.field == Type.TASK) {
+						textFields[index].setText(newId + "");
+					}
 					for (int j = 0; j < fDef.field.length; j++) {
 						if (fDef.field.goodValue(textFields[index].getText())) {
 							line.fields[index + ioff] = textFields[index]
@@ -103,18 +114,44 @@ public class LineDisplay extends BasePage {
 									+ textFields[index].getText() + " is not");
 							new ErrorMessage(fDef.name + " must be "
 									+ fDef.field.getFieldTypes(), 200,
-									LineDisplay.this, getX() + getWidth() / 2,
-									getY() + getHeight() / 2);
+									LineDisplay.this, frame.getX() + frame.getWidth() / 2,
+									frame.getY() + frame.getHeight() / 2);
 							return;
 						}
 					}
 				}
-				if (createTask) {
-
-				}
 				orig.copy(line);
 				display.show(display.currentTask);
+				if (createTask) {
+					parser.taskList.updateList();
+				}
 				frame.dispose();
+			}
+		});
+		button.setLocation(0, y);
+		button.setSize(650, 25);
+		add(button);
+		y += 30;
+
+		button = new JButton("Delete");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new YesNoQuestion("Do you want to delete this?", new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (line instanceof EventLine) {
+							System.out.println("Removing Event");
+							parser.removeEvent((EventLine)orig);
+						} else {
+							System.out.println("Removing Field");
+							parser.removeField(orig);
+						}
+						display.show(display.currentTask);
+						frame.dispose();
+					}
+				}, 200, LineDisplay.this, frame.getX() + frame.getWidth() / 2,
+				frame.getY() + frame.getHeight() / 2);
 			}
 		});
 		button.setLocation(0, y);
@@ -192,7 +229,7 @@ public class LineDisplay extends BasePage {
 			});
 			add(list);
 		} else {
-			final String[] strings = new String[parser.tasks.size()];
+			final String[] strings = new String[parser.tasks.size() + 1];
 			int ind = 0;
 			Set<Integer> keys = parser.tasks.keySet();
 			final List<Integer> tids = new ArrayList<Integer>();
@@ -204,6 +241,9 @@ public class LineDisplay extends BasePage {
 					ind = i;
 				i++;
 			}
+			final int newId = parser.allocateTaskId();
+			strings[i] = "New Task_" + newId;
+			tids.add(newId);
 			final int find = index + ioff;
 			textFields[index] = new JTextField(line.fields[index + ioff]);
 			index++;
@@ -214,6 +254,7 @@ public class LineDisplay extends BasePage {
 			list.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
+					createTask = (list.getSelectedIndex() == strings.length - 1);
 					line.fields[find] = tids.get(list.getSelectedIndex()) + "";
 					textFields[find - 1].setText(line.fields[find]);
 				}

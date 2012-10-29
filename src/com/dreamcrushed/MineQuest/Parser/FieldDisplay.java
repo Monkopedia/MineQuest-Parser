@@ -42,6 +42,19 @@ public class FieldDisplay extends TaskDisplay {
 			}, 300, 25);
 			System.out.println(line.getName());
 		}
+		button("Add Field", new ActionListener() {				
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					QuestLine line = new QuestLine(parser.fields.get(0));
+					parser.fields.add(line);
+					show(null);
+					new LineDisplay(line, parser, FieldDisplay.this, manager.getX(), manager.getY());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}, 300, 25);
 		manager.display(this);
 		repaint();
 	}

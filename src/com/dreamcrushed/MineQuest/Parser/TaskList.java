@@ -18,12 +18,19 @@ public class TaskList extends JPanel {
 	private JPanel panel;
 	protected int w;
 	protected int h;
+	private FieldDisplay fieldDisplay;
+	private TaskDisplay center;
+	private QuestParser parser;
 
 	public TaskList(final QuestParser parser, final TaskDisplay center, final FieldDisplay fieldDisplay, int w, int h) {
 		w -= 20;
 		h -= 20;
 		this.w = w;
 		this.h = h;
+		parser.taskList = this;
+		this.fieldDisplay = fieldDisplay;
+		this.center = center;
+		this.parser = parser;
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setLocation(10, 10);
 		scrollPane.setSize(w, h);
@@ -35,6 +42,27 @@ public class TaskList extends JPanel {
 		panel.setBorder(BorderFactory.createLineBorder(Color.black));
 		add(scrollPane);
 		
+		updateList();
+		
+//		JButton button = new JButton("Add New");
+//		button.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//
+//			}
+//		});
+//		button.setLocation(25, 525);
+//		button.setSize(250, 25);
+//		add(button);
+		
+		
+        this.setLayout(null);
+        this.setSize(300, 575);
+        this.setPreferredSize(this.getSize());
+	}
+	
+	public void updateList() {
+		panel.removeAll();
 		JButton newPanel = new JButton("Quest Fields");
 		newPanel.setSize(h - 20, 40);
 		newPanel.addActionListener(new ActionListener() {
@@ -64,21 +92,7 @@ public class TaskList extends JPanel {
 			panel.add(newPanel);
 		}
 		
-//		JButton button = new JButton("Add New");
-//		button.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//
-//			}
-//		});
-//		button.setLocation(25, 525);
-//		button.setSize(250, 25);
-//		add(button);
-		
-		
-        this.setLayout(null);
-        this.setSize(300, 575);
-        this.setPreferredSize(this.getSize());
+		panel.repaint();
 	}
 
 }

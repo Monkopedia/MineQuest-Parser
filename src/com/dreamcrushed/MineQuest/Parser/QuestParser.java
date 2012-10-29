@@ -21,6 +21,7 @@ public class QuestParser {
 	protected List<EventDefinition> eventDefs = new ArrayList<EventDefinition>();
 	protected List<QuestDefinition> questDefs = new ArrayList<QuestDefinition>();
 	protected List<QuestLine> fields = new ArrayList<QuestLine>();
+	public TaskList taskList;
 	
 	public QuestParser(String filename) {
 		questDefs.add(new QuestDefinition("QuestArea", new FieldDefinition[] {
@@ -285,5 +286,34 @@ public class QuestParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void removeEvent(EventLine line) {
+		events.remove(line);
+		for (int tid : tasks.keySet()) {
+			if (tasks.get(tid).events.contains(line)) {
+				tasks.get(tid).events.remove(line);
+			}
+		}
+	}
+
+	public void removeField(QuestLine line) {
+		fields.remove(line);
+	}
+
+	public int allocateEventId() {
+		int maxId = 0;
+		for (int id : events.keySet()) {
+			if (id > maxId) maxId = id;
+		}
+		return maxId + 1;
+	}
+
+	public int allocateTaskId() {
+		int maxId = 0;
+		for (int id : tasks.keySet()) {
+			if (id > maxId) maxId = id;
+		}
+		return maxId + 1;
 	}
 }
