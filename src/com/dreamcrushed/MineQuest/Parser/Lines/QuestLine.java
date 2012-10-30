@@ -1,10 +1,12 @@
-package com.dreamcrushed.MineQuest.Parser;
+package com.dreamcrushed.MineQuest.Parser.Lines;
 
 import java.io.PrintStream;
 
+import com.dreamcrushed.MineQuest.Parser.Definitions.QuestDefinition;
+
 public class QuestLine {
-	protected String[] fields;
-	protected QuestDefinition definition;
+	public String[] fields;
+	public QuestDefinition definition;
 	public String name = null;
 	
 	public QuestLine(QuestDefinition definition, String[] fields) throws Exception {

@@ -1,4 +1,4 @@
-package com.dreamcrushed.MineQuest.Parser;
+package com.dreamcrushed.MineQuest.Parser.Display;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -9,6 +9,10 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+
+import com.dreamcrushed.MineQuest.Parser.QuestParser;
+import com.dreamcrushed.MineQuest.Parser.Task;
+import com.dreamcrushed.MineQuest.Parser.Lines.EventLine;
 
 
 public class TaskDisplay extends BasePage {
@@ -73,7 +77,7 @@ public class TaskDisplay extends BasePage {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					EventLine line = new EventLine(parser.eventDefs.get(0), parser.allocateEventId());
+					EventLine line = new EventLine(parser.defs.eventDefs.get(0), parser);
 					parser.events.put(line.id, line);
 					task.events.add(line);
 					show(currentTask);

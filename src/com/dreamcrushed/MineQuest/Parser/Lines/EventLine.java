@@ -1,12 +1,17 @@
-package com.dreamcrushed.MineQuest.Parser;
+package com.dreamcrushed.MineQuest.Parser.Lines;
 
 import java.io.PrintStream;
 
+import com.dreamcrushed.MineQuest.Parser.QuestParser;
+import com.dreamcrushed.MineQuest.Parser.Task;
+import com.dreamcrushed.MineQuest.Parser.Type;
+import com.dreamcrushed.MineQuest.Parser.Definitions.EventDefinition;
+import com.dreamcrushed.MineQuest.Parser.Definitions.FieldDefinition;
 
-public class EventLine extends QuestLine {
+
+public class EventLine extends EnumeratedLine {
 	protected EventDefinition eDefinition;
 	protected Task nextEvents;
-	protected int id;
 
 	public EventLine(EventDefinition definition, String[] fields, int id)
 			throws Exception {
@@ -22,11 +27,10 @@ public class EventLine extends QuestLine {
 		this.eDefinition = orig.eDefinition;
 	}
 	
-	public EventLine(EventDefinition definition, int id) {
-		super(definition);
+	public EventLine(EventDefinition definition, QuestParser parser) {
+		super(definition, parser);
 		this.eDefinition = definition;
 		this.nextEvents = null;
-		this.id = id;
 	}
 
 	public Task getNextEvents() {
@@ -78,6 +82,11 @@ public class EventLine extends QuestLine {
 			this.id = ((EventLine)orig).id;
 			this.eDefinition = ((EventLine)orig).eDefinition;
 		}
+	}
+
+	@Override
+	public int allocateId(QuestParser parser) {
+		return parser.allocateEventId();
 	}
 
 }

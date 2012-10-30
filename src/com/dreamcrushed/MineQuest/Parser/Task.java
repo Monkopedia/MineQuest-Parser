@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import com.dreamcrushed.MineQuest.Parser.Lines.EventLine;
+
 public class Task {
 	public int id;
 	public String name;
-	protected List<EventLine> events;
-	protected boolean repeating;
+	public List<EventLine> events;
+	public boolean repeating;
 	private JButton callback;
 
 	public Task(int id, boolean repeating) {

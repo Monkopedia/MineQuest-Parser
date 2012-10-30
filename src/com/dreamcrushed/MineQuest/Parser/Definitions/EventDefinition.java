@@ -1,4 +1,4 @@
-package com.dreamcrushed.MineQuest.Parser;
+package com.dreamcrushed.MineQuest.Parser.Definitions;
 
 public class EventDefinition extends QuestDefinition {
 

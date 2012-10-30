@@ -1,4 +1,4 @@
-package com.dreamcrushed.MineQuest.Parser;
+package com.dreamcrushed.MineQuest.Parser.Display;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+
+import com.dreamcrushed.MineQuest.Parser.QuestParser;
+import com.dreamcrushed.MineQuest.Parser.Task;
+import com.dreamcrushed.MineQuest.Parser.Lines.QuestLine;
 
 public class FieldDisplay extends TaskDisplay {
 

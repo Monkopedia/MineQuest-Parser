@@ -10,6 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.dreamcrushed.MineQuest.Parser.Display.FieldDisplay;
+import com.dreamcrushed.MineQuest.Parser.Display.TaskDisplay;
+
 public class TaskList extends JPanel {
 	/**
 	 * 

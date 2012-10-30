@@ -11,13 +11,29 @@ public enum Type {
 	TASK(1),
 	EVENT(1),
 	BOOL(1),
-	ILOC(3),
-	FLOC(3),
-	FVEC(3),
-	EVENTLIST(1),
-	TASKLIST(1),
-	LONGLOC(5),
+	ILOC(3), // Needs Server Hook
+	FLOC(3), // Needs Server Hook
+	FVEC(3), // Needs Server Hook
+	EVENTLIST(1), // Needs implementing
+	TASKLIST(1), // Needs implementing - Low priority, not 
+	LONGLOC(5), // Needs Server Hook
 	QUESTFIELD(1),
+	ITEM(1), // Needs implementing - Plus enum
+	MITEM(1), // ^^
+	ITEMLIST(1), // ^^
+	REQUIREMENT(1), // Needs implementing - Plus requirements...
+	REQUIREMENTLIST(1), // ^^
+	REQUIREMENTTYPE(1), // ^^
+	EDIT(1), // Needs implementing - Plus edits...
+	EDITLIST(1), // ^^
+	EDITTYPE(1), // ^^
+	TARGET(1), // Needs implementing - Plus targets...
+	TARGETLIST(1), // ^^
+	TARGETTYPE(1), // ^^
+	ENTITY(1), // Needs implementing - Plus enum
+	ENTITYLIST(1), // ^^
+	T(1), // Target
+	IGNORE(1),
 	;
 	
 	final public int length;

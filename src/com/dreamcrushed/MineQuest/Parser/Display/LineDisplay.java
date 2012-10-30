@@ -1,4 +1,4 @@
-package com.dreamcrushed.MineQuest.Parser;
+package com.dreamcrushed.MineQuest.Parser.Display;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+
+import com.dreamcrushed.MineQuest.Parser.QuestParser;
+import com.dreamcrushed.MineQuest.Parser.Task;
+import com.dreamcrushed.MineQuest.Parser.Type;
+import com.dreamcrushed.MineQuest.Parser.Definitions.FieldDefinition;
+import com.dreamcrushed.MineQuest.Parser.Lines.EventLine;
+import com.dreamcrushed.MineQuest.Parser.Lines.QuestLine;
 
 public class LineDisplay extends BasePage {
 
@@ -164,6 +171,7 @@ public class LineDisplay extends BasePage {
 	}
 
 	private void showField(FieldDefinition fDef) {
+		if (fDef.field == Type.IGNORE) return;
 		int ly = y;
 		int x = 500 / fDef.field.length;
 
@@ -176,10 +184,10 @@ public class LineDisplay extends BasePage {
 				y = ly;
 			}
 		} else if (fDef.field == Type.QUESTFIELD) {
-			final String[] strings = new String[parser.questDefs.size()];
+			final String[] strings = new String[parser.defs.questDefs.size()];
 			int ind = 0;
 			for (int i = 0; i < strings.length; i++) {
-				strings[i] = parser.questDefs.get(i).name;
+				strings[i] = parser.defs.questDefs.get(i).name;
 				if (line.fields[index + ioff].equals(strings[i]))
 					ind = i;
 			}
@@ -195,17 +203,17 @@ public class LineDisplay extends BasePage {
 				public void actionPerformed(ActionEvent e) {
 					line.fields[find] = strings[list.getSelectedIndex()];
 					textFields[find - ioff].setText(line.fields[find]);
-					line.setDefinition(parser.questDefs.get(list
+					line.setDefinition(parser.defs.questDefs.get(list
 							.getSelectedIndex()));
 					setFields();
 				}
 			});
 			add(list);
 		} else if (fDef.field == Type.EVENTTYPE) {
-			final String[] strings = new String[parser.eventDefs.size()];
+			final String[] strings = new String[parser.defs.eventDefs.size()];
 			int ind = 0;
 			for (int i = 0; i < strings.length; i++) {
-				strings[i] = parser.eventDefs.get(i).name;
+				strings[i] = parser.defs.eventDefs.get(i).name;
 				if (line.fields[index + ioff].equals(strings[i]))
 					ind = i;
 			}
@@ -222,7 +230,7 @@ public class LineDisplay extends BasePage {
 					line.fields[find] = strings[list.getSelectedIndex()];
 					textFields[find - 1].setText(line.fields[find]);
 					((EventLine) line).setDefinition(
-							parser.eventDefs.get(list.getSelectedIndex()),
+							parser.defs.eventDefs.get(list.getSelectedIndex()),
 							parser);
 					setFields();
 				}

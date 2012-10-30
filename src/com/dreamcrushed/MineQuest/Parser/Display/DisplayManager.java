@@ -1,10 +1,14 @@
-package com.dreamcrushed.MineQuest.Parser;
+package com.dreamcrushed.MineQuest.Parser.Display;
 
 import java.awt.Container;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+
+import com.dreamcrushed.MineQuest.Parser.MenuBarHandler;
+import com.dreamcrushed.MineQuest.Parser.QuestParser;
+import com.dreamcrushed.MineQuest.Parser.TaskList;
 
 
 public class DisplayManager {

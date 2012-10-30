@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import com.dreamcrushed.MineQuest.Parser.Display.DisplayManager;
+
 public class MenuBarHandler {
 	public static JMenuBar createMenu(final QuestParser questParser) {
 		//Where the GUI is created:

@@ -1,4 +1,4 @@
-package com.dreamcrushed.MineQuest.Parser;
+package com.dreamcrushed.MineQuest.Parser.Display;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

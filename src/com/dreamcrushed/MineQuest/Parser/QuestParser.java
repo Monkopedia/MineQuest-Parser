@@ -9,6 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.dreamcrushed.MineQuest.Parser.Definitions.EventDefinition;
+import com.dreamcrushed.MineQuest.Parser.Definitions.FieldDefinition;
+import com.dreamcrushed.MineQuest.Parser.Definitions.QuestDefinition;
+import com.dreamcrushed.MineQuest.Parser.Lines.EditLine;
+import com.dreamcrushed.MineQuest.Parser.Lines.EventLine;
+import com.dreamcrushed.MineQuest.Parser.Lines.QuestLine;
+import com.dreamcrushed.MineQuest.Parser.Lines.RequirementLine;
+import com.dreamcrushed.MineQuest.Parser.Lines.TargetLine;
+
 public class QuestParser {
 	private final static String progName = "MineQuest Quest Writer";
 	private final static String version = "v0.1";
@@ -16,132 +25,135 @@ public class QuestParser {
 	protected String filename;
 	protected String last = "";
 	
-	protected Map<Integer, EventLine> events = new HashMap<Integer, EventLine>();
-	protected Map<Integer, Task> tasks = new HashMap<Integer, Task>();
-	protected List<EventDefinition> eventDefs = new ArrayList<EventDefinition>();
-	protected List<QuestDefinition> questDefs = new ArrayList<QuestDefinition>();
-	protected List<QuestLine> fields = new ArrayList<QuestLine>();
+	public Map<Integer, EventLine> events = new HashMap<Integer, EventLine>();
+	public Map<Integer, Task> tasks = new HashMap<Integer, Task>();
+	public QuestDefinitionParser defs;
+	public List<QuestLine> fields = new ArrayList<QuestLine>();
 	public TaskList taskList;
+	private Map<Integer, RequirementLine> requirements = new HashMap<Integer, RequirementLine>();
+	private Map<Integer, EditLine> edits = new HashMap<Integer, EditLine>();
+	private Map<Integer, TargetLine> targets = new HashMap<Integer, TargetLine>();
 	
 	public QuestParser(String filename) {
-		questDefs.add(new QuestDefinition("QuestArea", new FieldDefinition[] {
-				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
-				new FieldDefinition(Type.ILOC, "Start"),
-				new FieldDefinition(Type.ILOC, "End"),
-		}));
-		questDefs.add(new QuestDefinition("Instance", new FieldDefinition[] {
-				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
-				new FieldDefinition(Type.INTEGER, "MaxInstances"),
-				new FieldDefinition(Type.STRING, "InstanceName"),
-				new FieldDefinition(Type.STRING, "OriginalName"),
-				new FieldDefinition(Type.STRING, "Type"),
-		}));
-		questDefs.add(new QuestDefinition("Spawn", new FieldDefinition[] {
-				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
-				new FieldDefinition(Type.FLOC, "Location"),
-		}));
-
-		eventDefs.add(new EventDefinition("AreaEvent", new FieldDefinition[] {
-					new FieldDefinition(Type.STRING, "Event"),
-					new FieldDefinition(Type.INTEGER, "ID"),
-					new FieldDefinition(Type.EVENTTYPE, "EventName"),
-					new FieldDefinition(Type.INTEGER, "Delay"),
-					new FieldDefinition(Type.TASK, "NextIndex"),
-					new FieldDefinition(Type.FLOC, "Location"),
-					new FieldDefinition(Type.FLOAT, "Radius"),
-			}));
-		eventDefs.add(new EventDefinition("BlockEvent", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.ILOC, "Location"),
-				new FieldDefinition(Type.INTEGER, "Type"),
-		}));
-		eventDefs.add(new EventDefinition("EntitySpawnerNoMove", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.FLOC, "Location"),
-				new FieldDefinition(Type.STRING, "Creature"),
-				new FieldDefinition(Type.BOOL, "Super"),
-		}));
-		eventDefs.add(new EventDefinition("EntitySpawnerCompleteNMEvent", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.TASK, "NextIndex"),
-				new FieldDefinition(Type.STRING, "Events"),
-		}));
-		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.STRING, "All"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.INTEGER, "Exp"),
-				new FieldDefinition(Type.INTEGER, "Class Experience"),
-		}));
-		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.STRING, "All"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.INTEGER, "Exp"),
-				new FieldDefinition(Type.INTEGER, "Class Experience"),
-				new FieldDefinition(Type.INTEGER, "Cubes"),
-		}));
-		eventDefs.add(new EventDefinition("QuestEvent", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.TASK, "NextIndex"),
-		}));
-		eventDefs.add(new EventDefinition("SingleAreaEvent", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.TASK, "NextIndex"),
-				new FieldDefinition(Type.FLOC, "Location"),
-				new FieldDefinition(Type.FLOAT, "Radius"),
-		}));
-		eventDefs.add(new EventDefinition("ArrowEvent", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.FLOC, "Start"),
-				new FieldDefinition(Type.FVEC, "Direction"),
-		}));
-		eventDefs.add(new EventDefinition("CanEdit", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.FLOC, "Location"),
-				new FieldDefinition(Type.TASK, "NextIndex"),
-		}));
-		eventDefs.add(new EventDefinition("HealthEntitySpawn", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-				new FieldDefinition(Type.TASK, "NextIndex"),
-				new FieldDefinition(Type.FLOC, "Location"),
-				new FieldDefinition(Type.STRING, "Creature"),
-				new FieldDefinition(Type.INTEGER, "Health"),
-				new FieldDefinition(Type.BOOL, "Super"),
-		}));
-		eventDefs.add(new EventDefinition("CompleteQuestEvent", new FieldDefinition[] {
-				new FieldDefinition(Type.STRING, "Event"),
-				new FieldDefinition(Type.INTEGER, "ID"),
-				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-				new FieldDefinition(Type.INTEGER, "Delay"),
-		}));
+		defs = new QuestDefinitionParser("defs.json");
+//		questDefs.add(new QuestDefinition("QuestArea", new FieldDefinition[] {
+//				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
+//				new FieldDefinition(Type.ILOC, "Start"),
+//				new FieldDefinition(Type.ILOC, "End"),
+//		}));
+//		questDefs.add(new QuestDefinition("Instance", new FieldDefinition[] {
+//				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
+//				new FieldDefinition(Type.INTEGER, "MaxInstances"),
+//				new FieldDefinition(Type.STRING, "InstanceName"),
+//				new FieldDefinition(Type.STRING, "OriginalName"),
+//				new FieldDefinition(Type.STRING, "Type"),
+//		}));
+//		questDefs.add(new QuestDefinition("Spawn", new FieldDefinition[] {
+//				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
+//				new FieldDefinition(Type.FLOC, "Location"),
+//		}));
+//
+//		eventDefs.add(new EventDefinition("AreaEvent", new FieldDefinition[] {
+//					new FieldDefinition(Type.STRING, "Event"),
+//					new FieldDefinition(Type.INTEGER, "ID"),
+//					new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//					new FieldDefinition(Type.INTEGER, "Delay"),
+//					new FieldDefinition(Type.TASK, "NextIndex"),
+//					new FieldDefinition(Type.FLOC, "Location"),
+//					new FieldDefinition(Type.FLOAT, "Radius"),
+//			}));
+//		eventDefs.add(new EventDefinition("BlockEvent", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.ILOC, "Location"),
+//				new FieldDefinition(Type.INTEGER, "Type"),
+//		}));
+//		eventDefs.add(new EventDefinition("EntitySpawnerNoMove", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.FLOC, "Location"),
+//				new FieldDefinition(Type.STRING, "Creature"),
+//				new FieldDefinition(Type.BOOL, "Super"),
+//		}));
+//		eventDefs.add(new EventDefinition("EntitySpawnerCompleteNMEvent", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.TASK, "NextIndex"),
+//				new FieldDefinition(Type.STRING, "Events"),
+//		}));
+//		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.STRING, "All"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.INTEGER, "Exp"),
+//				new FieldDefinition(Type.INTEGER, "Class Experience"),
+//		}));
+//		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.STRING, "All"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.INTEGER, "Exp"),
+//				new FieldDefinition(Type.INTEGER, "Class Experience"),
+//				new FieldDefinition(Type.INTEGER, "Cubes"),
+//		}));
+//		eventDefs.add(new EventDefinition("QuestEvent", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.TASK, "NextIndex"),
+//		}));
+//		eventDefs.add(new EventDefinition("SingleAreaEvent", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.TASK, "NextIndex"),
+//				new FieldDefinition(Type.FLOC, "Location"),
+//				new FieldDefinition(Type.FLOAT, "Radius"),
+//		}));
+//		eventDefs.add(new EventDefinition("ArrowEvent", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.FLOC, "Start"),
+//				new FieldDefinition(Type.FVEC, "Direction"),
+//		}));
+//		eventDefs.add(new EventDefinition("CanEdit", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.FLOC, "Location"),
+//				new FieldDefinition(Type.TASK, "NextIndex"),
+//		}));
+//		eventDefs.add(new EventDefinition("HealthEntitySpawn", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//				new FieldDefinition(Type.TASK, "NextIndex"),
+//				new FieldDefinition(Type.FLOC, "Location"),
+//				new FieldDefinition(Type.STRING, "Creature"),
+//				new FieldDefinition(Type.INTEGER, "Health"),
+//				new FieldDefinition(Type.BOOL, "Super"),
+//		}));
+//		eventDefs.add(new EventDefinition("CompleteQuestEvent", new FieldDefinition[] {
+//				new FieldDefinition(Type.STRING, "Event"),
+//				new FieldDefinition(Type.INTEGER, "ID"),
+//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
+//				new FieldDefinition(Type.INTEGER, "Delay"),
+//		}));
 		if (filename != null) {
 			setupQuest(filename);
 		} else {
@@ -193,9 +205,9 @@ public class QuestParser {
 		} else if (split[0].equals("RepeatingTask")) {
 			createTask(split, true);
 		} else {
-			for (int i = 0; i < questDefs.size(); i++) {
-				if (questDefs.get(i).name.equals(split[0])) {
-					QuestLine ql = new QuestLine(questDefs.get(i), split);
+			for (int i = 0; i < defs.questDefs.size(); i++) {
+				if (defs.questDefs.get(i).name.equals(split[0])) {
+					QuestLine ql = new QuestLine(defs.questDefs.get(i), split);
 					if (last.startsWith("#")) {
 						ql.name = last.replaceAll("#", "");
 					}
@@ -234,11 +246,11 @@ public class QuestParser {
 		String type = line[2];
 		EventLine newEvent;
 		
-		for (int i = 0; i < eventDefs.size(); i++) {
-			if (eventDefs.get(i).name.equals(type)) {
-				newEvent = new EventLine(eventDefs.get(i), line, id);
-				if (eventDefs.get(i).hasTask()) {
-					newEvent.setNextEvents(getTask(eventDefs.get(i).getTask(line)));
+		for (int i = 0; i < defs.eventDefs.size(); i++) {
+			if (defs.eventDefs.get(i).name.equals(type)) {
+				newEvent = new EventLine(defs.eventDefs.get(i), line, id);
+				if (defs.eventDefs.get(i).hasTask()) {
+					newEvent.setNextEvents(getTask(defs.eventDefs.get(i).getTask(line)));
 				}
 				events.put(id, newEvent);
 				if (last.startsWith("#")) {
@@ -283,7 +295,6 @@ public class QuestParser {
 			
 			ps.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -312,6 +323,30 @@ public class QuestParser {
 	public int allocateTaskId() {
 		int maxId = 0;
 		for (int id : tasks.keySet()) {
+			if (id > maxId) maxId = id;
+		}
+		return maxId + 1;
+	}
+
+	public int allocateRequirementId() {
+		int maxId = 0;
+		for (int id : requirements.keySet()) {
+			if (id > maxId) maxId = id;
+		}
+		return maxId + 1;
+	}
+
+	public int allocateEditId() {
+		int maxId = 0;
+		for (int id : edits.keySet()) {
+			if (id > maxId) maxId = id;
+		}
+		return maxId + 1;
+	}
+
+	public int allocateTargetId() {
+		int maxId = 0;
+		for (int id : targets.keySet()) {
 			if (id > maxId) maxId = id;
 		}
 		return maxId + 1;
