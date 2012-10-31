@@ -18,9 +18,9 @@ public class BasePage extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected int y;
+	public int y;
 
-	protected void label(String name) {
+	public void label(String name) {
 		final JLabel label = new JLabel(name);
 		label.setLocation(0, y);
 		label.setSize(200, 25);

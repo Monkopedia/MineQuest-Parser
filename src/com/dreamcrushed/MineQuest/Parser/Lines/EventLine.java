@@ -40,15 +40,6 @@ public class EventLine extends EnumeratedLine {
 	public void setNextEvents(Task task) {
 		this.nextEvents = task;
 	}
-
-	@Override
-	public String getName() {
-		if (name != null) {
-			return name;
-		} else {
-			return id + ": " + eDefinition.name;
-		}
-	}
 	
 	@Override
 	public void print(PrintStream ps) {

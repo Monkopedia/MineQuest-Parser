@@ -21,6 +21,15 @@ public abstract class EnumeratedLine extends QuestLine {
 	public EnumeratedLine(QuestLine orig) throws Exception {
 		super(orig);
 	}
+
+	@Override
+	public String getName() {
+		if (name != null) {
+			return name;
+		} else {
+			return id + ": " + definition.name;
+		}
+	}
 	
 	@Override
 	public void setDefinition(QuestDefinition questDefinition) {
