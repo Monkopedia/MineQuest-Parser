@@ -22,13 +22,13 @@ public class JSONObject {
 				String name = toString(pieces[0]);
 				names.add(name);
 				fields.put(name, toString(pieces[1]));
-				System.out.println(f + "");
+//				System.out.println(name + "::" + fields.get(name));
 			}
 		}
 	}
 
 	private String toString(String string) {
-		String s = string.substring(string.indexOf('"'));
+		String s = string.substring(string.indexOf('"') + 1);
 		
 		return s.substring(0, s.indexOf('"'));
 	}

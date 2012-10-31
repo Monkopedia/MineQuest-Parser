@@ -1,7 +1,6 @@
 package com.dreamcrushed.MineQuest.Parser;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,7 +27,6 @@ public class QuestDefinitionParser {
 			while (line != null) {
 				file = file + "\n" + line;
 				if (line.contains("}")) {
-					System.out.println("Parsing " + file);
 			        JSONObject json = new JSONObject(file);
 			        handleJSON(json);
 					file = is.readLine();
@@ -36,10 +34,8 @@ public class QuestDefinitionParser {
 				line = is.readLine();
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -50,27 +46,41 @@ public class QuestDefinitionParser {
 		
 		for (int i = 0; i < fDefs.length; i++) {
 			String name = names.get(i);
-			System.out.println("Setting Field " + i + " " + name);
 			fDefs[i] = new FieldDefinition(Type.fromType(json.getString(name)), name, "");
+			if (fDefs[i].field == null) {
+				System.out.println("Couldn't find type: " + json.getString(name));
+			}
 		}
 
-		switch (fDefs[0].field) {
-		case EVENTTYPE:
-			eventDefs.add(new EventDefinition(fDefs[2].name, fDefs));
-			break;
-		case REQUIREMENTTYPE:
-			requireDefs.add(new QuestDefinition(fDefs[2].name, fDefs));
-			break;
-		case EDITTYPE:
-			editDefs.add(new QuestDefinition(fDefs[2].name, fDefs));
-			break;
-		case TARGETTYPE:
-			targetDefs.add(new QuestDefinition(fDefs[2].name, fDefs));
-			break;
-		default:
+		if (fDefs.length > 2) {
+			switch (fDefs[2].field) {
+			case EVENTTYPE:
+				if ((fDefs.length > 3) && (fDefs[3].field == Type.T)) {
+					eventDefs.add(new EventDefinition(fDefs[2].name + " (T)", fDefs));
+				} else {
+					eventDefs.add(new EventDefinition(fDefs[2].name, fDefs));
+				}
+				fDefs[2].name = "Event Type";
+				break;
+			case REQUIREMENTTYPE:
+				requireDefs.add(new QuestDefinition(fDefs[2].name, fDefs));
+				fDefs[2].name = "Requirement Type";
+				break;
+			case EDITTYPE:
+				editDefs.add(new QuestDefinition(fDefs[2].name, fDefs));
+				fDefs[2].name = "Edit Type";
+				break;
+			case TARGETTYPE:
+				targetDefs.add(new QuestDefinition(fDefs[2].name, fDefs));
+				fDefs[2].name = "Target Type";
+				break;
+			default:
+				questDefs.add(new QuestDefinition(fDefs[0].name, fDefs));
+				fDefs[0].name = "Field Type";
+				break;
+			}
+		} else {
 			questDefs.add(new QuestDefinition(fDefs[0].name, fDefs));
-			break;
 		}
-		System.out.println("Adding " + fDefs[0].name + " " + fDefs[2].name);
 	}
 }

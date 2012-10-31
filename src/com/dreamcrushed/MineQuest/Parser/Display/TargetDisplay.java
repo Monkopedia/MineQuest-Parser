@@ -9,16 +9,16 @@ import javax.swing.JLabel;
 
 import com.dreamcrushed.MineQuest.Parser.QuestParser;
 import com.dreamcrushed.MineQuest.Parser.Task;
-import com.dreamcrushed.MineQuest.Parser.Lines.QuestLine;
+import com.dreamcrushed.MineQuest.Parser.Lines.TargetLine;
 
-public class FieldDisplay extends TaskDisplay {
+public class TargetDisplay extends TaskDisplay {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7201742770929707586L;
 
-	public FieldDisplay(QuestParser parser, DisplayManager manager) {
+	public TargetDisplay(QuestParser parser, DisplayManager manager) {
 		super(parser, manager);
 	}
 
@@ -26,17 +26,17 @@ public class FieldDisplay extends TaskDisplay {
 	public void show(final Task task) {
 		this.removeAll();
 		y = 5;
-		JLabel l = label("Quest Parameters: ", 0, y, 300, 25);
+		JLabel l = label("Quest Targets: ", 0, y, 300, 25);
 		l.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 //		y = 0;
 		y += 10;
 		
-		for (final QuestLine line : parser.fields) {
+		for (final TargetLine line : parser.targets.values()) {
 			button(line.getName(), new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						new LineDisplay(line, parser, FieldDisplay.this, manager.getX(), manager.getY());
+						new LineDisplay(line, parser, TargetDisplay.this, manager.getX(), manager.getY());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -46,14 +46,14 @@ public class FieldDisplay extends TaskDisplay {
 			}, 300, 25);
 			System.out.println(line.getName());
 		}
-		button("Add Field", new ActionListener() {				
+		button("Add Target", new ActionListener() {				
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					QuestLine line = new QuestLine(parser.defs.questDefs.get(0));
-					parser.fields.add(line);
+					TargetLine line = new TargetLine(parser.defs.targetDefs.get(0), parser);
+					parser.targets.put(line.id, line);
 					show(null);
-					new LineDisplay(line, parser, FieldDisplay.this, manager.getX(), manager.getY());
+					new LineDisplay(line, parser, TargetDisplay.this, manager.getX(), manager.getY());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

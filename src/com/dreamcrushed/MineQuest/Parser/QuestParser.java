@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.dreamcrushed.MineQuest.Parser.Definitions.EventDefinition;
-import com.dreamcrushed.MineQuest.Parser.Definitions.FieldDefinition;
-import com.dreamcrushed.MineQuest.Parser.Definitions.QuestDefinition;
 import com.dreamcrushed.MineQuest.Parser.Lines.EditLine;
 import com.dreamcrushed.MineQuest.Parser.Lines.EventLine;
 import com.dreamcrushed.MineQuest.Parser.Lines.QuestLine;
@@ -30,9 +27,9 @@ public class QuestParser {
 	public QuestDefinitionParser defs;
 	public List<QuestLine> fields = new ArrayList<QuestLine>();
 	public TaskList taskList;
-	private Map<Integer, RequirementLine> requirements = new HashMap<Integer, RequirementLine>();
-	private Map<Integer, EditLine> edits = new HashMap<Integer, EditLine>();
-	private Map<Integer, TargetLine> targets = new HashMap<Integer, TargetLine>();
+	public Map<Integer, RequirementLine> requirements = new HashMap<Integer, RequirementLine>();
+	public Map<Integer, EditLine> edits = new HashMap<Integer, EditLine>();
+	public Map<Integer, TargetLine> targets = new HashMap<Integer, TargetLine>();
 	
 	public QuestParser(String filename) {
 		defs = new QuestDefinitionParser("defs.json");

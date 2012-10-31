@@ -6,6 +6,7 @@ import java.util.Map;
 public enum Type {
 	EVENTTYPE(1),
 	INTEGER(1),
+	INTEGERLIST(1),
 	FLOAT(1),
 	STRING(1),
 	TASK(1),
@@ -23,17 +24,18 @@ public enum Type {
 	ITEMLIST(1), // ^^
 	REQUIREMENT(1), // Needs implementing - Plus requirements...
 	REQUIREMENTLIST(1), // ^^
-	REQUIREMENTTYPE(1), // ^^
-	EDIT(1), // Needs implementing - Plus edits...
+	REQUIREMENTTYPE(1), 
+	EDIT(1), // Needs implementing 
 	EDITLIST(1), // ^^
-	EDITTYPE(1), // ^^
-	TARGET(1), // Needs implementing - Plus targets...
+	EDITTYPE(1),
+	TARGET(1), // Needs implementing 
 	TARGETLIST(1), // ^^
-	TARGETTYPE(1), // ^^
+	TARGETTYPE(1), 
 	ENTITY(1), // Needs implementing - Plus enum
 	ENTITYLIST(1), // ^^
 	T(1), // Target
 	IGNORE(1),
+	COMPARE(1), // Needs implementing
 	;
 	
 	final public int length;
@@ -100,5 +102,8 @@ public enum Type {
 		for (Type type : values()) {
 			types.put(type + "", type);
 		}
+		types.put("INT", INTEGER);
+		types.put("INTLIST", INTEGERLIST);
+		types.put("DATE", IGNORE);
 	}
 }

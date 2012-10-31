@@ -9,6 +9,8 @@ public abstract class EnumeratedLine extends QuestLine {
 	public EnumeratedLine(QuestDefinition definition, QuestParser parser) {
 		super(definition);
 		id = allocateId(parser);
+		fields[2] = definition.name.replaceAll(" ", "").replaceAll(" \\(T\\)", "");
+		fields[0] = getClass().getSimpleName().replaceAll("Line", "");
 	}
 
 	public EnumeratedLine(QuestDefinition definition, String[] fields)
@@ -18,6 +20,12 @@ public abstract class EnumeratedLine extends QuestLine {
 
 	public EnumeratedLine(QuestLine orig) throws Exception {
 		super(orig);
+	}
+	
+	@Override
+	public void setDefinition(QuestDefinition questDefinition) {
+		super.setDefinition(questDefinition);
+		fields[2] = definition.name.replaceAll(" ", "").replaceAll(" \\(T\\)", "");
 	}
 	
 	public abstract int allocateId(QuestParser parser);

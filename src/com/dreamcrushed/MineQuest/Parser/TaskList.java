@@ -10,7 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.dreamcrushed.MineQuest.Parser.Display.EditDisplay;
 import com.dreamcrushed.MineQuest.Parser.Display.FieldDisplay;
+import com.dreamcrushed.MineQuest.Parser.Display.RequirementDisplay;
+import com.dreamcrushed.MineQuest.Parser.Display.TargetDisplay;
 import com.dreamcrushed.MineQuest.Parser.Display.TaskDisplay;
 
 public class TaskList extends JPanel {
@@ -24,8 +27,13 @@ public class TaskList extends JPanel {
 	private FieldDisplay fieldDisplay;
 	private TaskDisplay center;
 	private QuestParser parser;
+	private RequirementDisplay require;
+	private EditDisplay edit;
+	private TargetDisplay target;
 
-	public TaskList(final QuestParser parser, final TaskDisplay center, final FieldDisplay fieldDisplay, int w, int h) {
+	public TaskList(QuestParser parser, TaskDisplay center,
+			FieldDisplay fieldDisplay, RequirementDisplay requireDisplay,
+			EditDisplay editDisplay, TargetDisplay targetDisplay, int w, int h) {
 		w -= 20;
 		h -= 20;
 		this.w = w;
@@ -34,6 +42,9 @@ public class TaskList extends JPanel {
 		this.fieldDisplay = fieldDisplay;
 		this.center = center;
 		this.parser = parser;
+		this.require = requireDisplay;
+		this.edit = editDisplay;
+		this.target = targetDisplay;
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setLocation(10, 10);
 		scrollPane.setSize(w, h);
@@ -72,6 +83,36 @@ public class TaskList extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				fieldDisplay.show((Task)null);
+			}
+		});
+		panel.add(newPanel);
+		
+		newPanel = new JButton("Quest Requirements");
+		newPanel.setSize(h - 20, 40);
+		newPanel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				require.show((Task)null);
+			}
+		});
+		panel.add(newPanel);
+		
+		newPanel = new JButton("Quest Edits");
+		newPanel.setSize(h - 20, 40);
+		newPanel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				edit.show((Task)null);
+			}
+		});
+		panel.add(newPanel);
+		
+		newPanel = new JButton("Quest Targets");
+		newPanel.setSize(h - 20, 40);
+		newPanel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				target.show((Task)null);
 			}
 		});
 		panel.add(newPanel);

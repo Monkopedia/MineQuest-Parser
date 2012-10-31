@@ -32,6 +32,7 @@ public class QuestLine {
 		for (int i = 0; i < fields.length; i++) {
 			fields[i] = "";
 		}
+		fields[0] = definition.name.replaceAll(" ", "").replaceAll(" \\(T\\)", "");
 	}
 
 	public void setDefinition(QuestDefinition questDefinition) {

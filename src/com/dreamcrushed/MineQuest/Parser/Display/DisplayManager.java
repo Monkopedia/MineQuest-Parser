@@ -21,6 +21,9 @@ public class DisplayManager {
 	private int heights;
 	private int lsize;
 	private QuestParser parser;
+	private RequirementDisplay requireDisplay;
+	private EditDisplay editDisplay;
+	private TargetDisplay targetDisplay;
 	
 	public static void openParser(final QuestParser parser) {
 		new DisplayManager(parser);
@@ -33,7 +36,10 @@ public class DisplayManager {
 
 		taskDisplay = new TaskDisplay(parser, this);
 		fieldDisplay = new FieldDisplay(parser, this);
-		leftManager = new TaskList(parser, taskDisplay, fieldDisplay, lsize, heights);
+		requireDisplay = new RequirementDisplay(parser, this);
+		editDisplay = new EditDisplay(parser, this);
+		targetDisplay = new TargetDisplay(parser, this);
+		leftManager = new TaskList(parser, taskDisplay, fieldDisplay, requireDisplay, editDisplay, targetDisplay, lsize, heights);
 		this.parser = parser;
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
