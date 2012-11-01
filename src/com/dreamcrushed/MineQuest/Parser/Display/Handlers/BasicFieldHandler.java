@@ -50,7 +50,7 @@ public class BasicFieldHandler extends FieldHandler {
 						+ fDef.field.getFieldTypes() + "\n"
 						+ textFields[j].getText() + " is not");
 				new ErrorMessage(fDef.name + " must be "
-						+ fDef.field.getFieldTypes(), 200,
+						+ fDef.field.getFieldTypes(), "Error", 200,
 						display, display.frame.getX() + display.frame.getWidth() / 2,
 						display.frame.getY() + display.frame.getHeight() / 2);
 				return false;

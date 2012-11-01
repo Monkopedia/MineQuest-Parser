@@ -3,8 +3,6 @@ package com.dreamcrushed.MineQuest.Parser;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 /**
  * An enum of all material ids accepted by the official server + client
  */
@@ -441,7 +439,7 @@ public enum Material {
      * @return Material if found, or null
      */
     public static Material matchMaterial(final String name) {
-        Validate.notNull(name, "Name cannot be null");
+//        Validate.notNull(name, "Name cannot be null");
 
         Material result = null;
 

@@ -53,11 +53,11 @@ public enum Type {
 	FLOAT(1),
 	STRING(1),
 	BOOL(1),
-	ILOC(3), // Needs Server Hook
-	FLOC(3), // Needs Server Hook
-	FVEC(3), // Needs Server Hook
+	ILOC(3),
+	FLOC(3),
+	FVEC(3),
 //	TASKLIST(1), // Needs implementing - Low priority, not used yet
-	LONGLOC(5), // Needs Server Hook
+	LONGLOC(5),
 	QUESTFIELD(1, QuestFieldHandler.class),
 	ITEM(1, ItemHandler.class), 
 	MITEM(1, MultiItemHandler.class), 

@@ -14,7 +14,7 @@ import javax.swing.KeyStroke;
 import com.dreamcrushed.MineQuest.Parser.Display.DisplayManager;
 
 public class MenuBarHandler {
-	public static JMenuBar createMenu(final QuestParser questParser) {
+	public static JMenuBar createMenu(final DisplayManager displayManager, final QuestParser questParser) {
 		//Where the GUI is created:
 		final JMenuBar menuBar;
 		JMenu menu;
@@ -93,11 +93,23 @@ public class MenuBarHandler {
 		menuItem = new JMenuItem("Connect");
 		menuItem.getAccessibleContext().setAccessibleDescription(
 		        "Connect to a MineQuest Server");
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new ServerConnect(displayManager, questParser);
+			}
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Disconnect");
 		menuItem.getAccessibleContext().setAccessibleDescription(
 		        "Disconnect from current server");
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new ServerDisconnect(displayManager, questParser);
+			}
+		});
 		menu.add(menuItem);
 
 		return menuBar;

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import com.dreamcrushed.ClientComm.NetworkManager;
 import com.dreamcrushed.MineQuest.Parser.MenuBarHandler;
 import com.dreamcrushed.MineQuest.Parser.QuestParser;
 import com.dreamcrushed.MineQuest.Parser.TaskList;
@@ -13,7 +14,7 @@ import com.dreamcrushed.MineQuest.Parser.TaskList;
 
 public class DisplayManager {
 	
-	private JFrame frame;
+	public JFrame frame;
 	private TaskList leftManager;
 	private TaskDisplay taskDisplay;
 	private FieldDisplay fieldDisplay;
@@ -24,6 +25,8 @@ public class DisplayManager {
 	private RequirementDisplay requireDisplay;
 	private EditDisplay editDisplay;
 	private TargetDisplay targetDisplay;
+	
+	public NetworkManager networkManager;
 	
 	public static void openParser(final QuestParser parser) {
 		new DisplayManager(parser);
@@ -69,7 +72,7 @@ public class DisplayManager {
 
 	public void setDisplay(Container left, Container right, int lsize, int w, int h) {
         frame.setSize(w, h);
-        frame.setJMenuBar(MenuBarHandler.createMenu(parser));
+        frame.setJMenuBar(MenuBarHandler.createMenu(this, parser));
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         //Create and set up the content pane.

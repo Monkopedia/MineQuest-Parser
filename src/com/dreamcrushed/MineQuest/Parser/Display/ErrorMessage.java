@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 public class ErrorMessage {
 
-	public ErrorMessage(String message, int width, Component parent, int x, int y) {
+	public ErrorMessage(String message, String window, int width, Component parent, int x, int y) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		
@@ -28,7 +28,7 @@ public class ErrorMessage {
 		panel.setSize(width, 50);
 		panel.setPreferredSize(panel.getSize());
 		
-		final JFrame frame = new JFrame("Error");
+		final JFrame frame = new JFrame(window);
 //		final Popup popup = PopupFactory.getSharedInstance().getPopup(parent, panel, x, y);
 //		popup.show();
 		frame.setContentPane(panel);
