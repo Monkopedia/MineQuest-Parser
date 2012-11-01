@@ -38,6 +38,12 @@ public class QuestDefinitionParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("JSON Read Report: ");
+		System.out.println("Found " + questDefs.size() + " Quest Field Types");
+		System.out.println("Found " + eventDefs.size() + " Quest Event Types");
+		System.out.println("Found " + editDefs.size() + " Edit Types");
+		System.out.println("Found " + requireDefs.size() + " Requirement Types");
+		System.out.println("Found " + targetDefs.size() + " Quest Target Types");
 	}
 
 	private void handleJSON(JSONObject json) {

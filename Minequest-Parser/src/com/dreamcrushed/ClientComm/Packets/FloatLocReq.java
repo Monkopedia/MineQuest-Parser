@@ -6,9 +6,8 @@ import com.dreamcrushed.ClientComm.Util;
 
 public class FloatLocReq extends Packet {
 
-	public FloatLocReq(int id, String[] params) {
-		super(params);
-		// TODO Auto-generated constructor stub
+	public FloatLocReq() {
+		super(new String[0]);
 	}
 
 	@Override

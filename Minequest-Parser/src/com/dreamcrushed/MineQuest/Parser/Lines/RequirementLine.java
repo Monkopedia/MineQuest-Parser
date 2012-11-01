@@ -9,9 +9,8 @@ public class RequirementLine extends EnumeratedLine {
 		super(definition, parser);
 	}
 
-	public RequirementLine(QuestDefinition definition, String[] fields)
-			throws Exception {
-		super(definition, fields);
+	public RequirementLine(QuestDefinition definition, String[] fields, int id) throws Exception {
+		super(definition, fields, id);
 	}
 
 	public RequirementLine(QuestLine orig) throws Exception {

@@ -18,6 +18,7 @@ public class WriterThread extends Thread {
 	public void sendPacket(Packet packet) {
 //		System.out.println("Sending Packet\n");
 		String s = packet.packetString();
+		System.out.println("Sending Packet: " + s);
 		printStream.println(s);
 	}
 	

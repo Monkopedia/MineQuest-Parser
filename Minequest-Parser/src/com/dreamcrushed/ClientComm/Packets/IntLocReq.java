@@ -6,9 +6,8 @@ import com.dreamcrushed.ClientComm.Util;
 
 public class IntLocReq extends Packet {
 
-	public IntLocReq(int id, String[] params) {
-		super(params);
-		// TODO Auto-generated constructor stub
+	public IntLocReq() {
+		super(new String[0]);
 	}
 
 	@Override

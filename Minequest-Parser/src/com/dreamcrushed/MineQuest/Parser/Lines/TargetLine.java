@@ -9,9 +9,8 @@ public class TargetLine extends EnumeratedLine {
 		super(definition, parser);
 	}
 
-	public TargetLine(QuestDefinition definition, String[] fields)
-			throws Exception {
-		super(definition, fields);
+	public TargetLine(QuestDefinition definition, String[] fields, int id) throws Exception {
+		super(definition, fields, id);
 	}
 
 	public TargetLine(QuestLine orig) throws Exception {

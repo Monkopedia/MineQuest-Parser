@@ -26,7 +26,7 @@ public class ReaderThread extends Thread {
 		while (mRun) {
 			try {
 				String packet = this.bufferedReader.readLine();
-				
+				System.out.println("Got Packet: " + packet);
 				Packet p = Packet.newPacket(packet);
 				p.handle(networkManager);
 			} catch (Exception e) {

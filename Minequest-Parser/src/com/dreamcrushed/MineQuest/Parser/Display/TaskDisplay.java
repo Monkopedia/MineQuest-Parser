@@ -22,7 +22,7 @@ public class TaskDisplay extends BasePage {
 	protected static final long serialVersionUID = 1L;
 	protected QuestParser parser;
 	public Task currentTask;
-	protected DisplayManager manager;
+	public DisplayManager manager;
 
 	public TaskDisplay(QuestParser parser, DisplayManager manager) {
 		this.parser = parser;

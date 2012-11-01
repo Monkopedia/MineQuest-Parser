@@ -11,6 +11,11 @@ public class SetPlayer extends Packet {
 		super(params);
 	}
 
+	public SetPlayer(String name) {
+		super(new String[0]);
+		this.player = name;
+	}
+
 	@Override
 	public String packetString() {
 		return Util.concat(new String[] {PacketType.SET_PLAYER.getType() + "", player}, ":");

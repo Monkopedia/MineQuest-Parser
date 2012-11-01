@@ -1,0 +1,10 @@
+name: MineQuestParser
+main: com.theminequest.MineQuest.MineQuestParser
+version: ${build.version}
+
+author: JMonk
+
+description: This plugin opens a port for communication with the MineQuest Quest Writer
+website: www.theminequest.com
+
+load: POSTWORLD

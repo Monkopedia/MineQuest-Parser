@@ -31,12 +31,12 @@ public abstract class Packet {
 		if (type == null) {
 			throw new InvalidPacketException();
 		}
-		String[] params = new String[split.length - 2];
-		for (int i = 2; i < split.length; i++) {
-			params[i - 2] = split[i];
+		String[] params = new String[split.length - 1];
+		for (int i = 1; i < split.length; i++) {
+			params[i - 1] = split[i];
 		}
 		try {
-			return type.instance(Integer.parseInt(split[1]), params);
+			return type.instance(0, params);
 		} catch (NumberFormatException e) {
 			throw new InvalidPacketException();
 		} catch (SecurityException e) {

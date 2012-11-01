@@ -1,5 +1,7 @@
 package com.dreamcrushed.MineQuest.Parser.Lines;
 
+import java.io.PrintStream;
+
 import com.dreamcrushed.MineQuest.Parser.QuestParser;
 import com.dreamcrushed.MineQuest.Parser.Definitions.QuestDefinition;
 
@@ -13,13 +15,19 @@ public abstract class EnumeratedLine extends QuestLine {
 		fields[0] = getClass().getSimpleName().replaceAll("Line", "");
 	}
 
-	public EnumeratedLine(QuestDefinition definition, String[] fields)
-			throws Exception {
-		super(definition, fields);
-	}
-
 	public EnumeratedLine(QuestLine orig) throws Exception {
 		super(orig);
+	}
+	
+	public EnumeratedLine(QuestDefinition definition, String[] fields, int id) throws Exception {
+		super(definition, fields);
+		this.id = id;
+	}
+
+	@Override
+	public void print(PrintStream ps) {
+		fields[1] = id + "";
+		super.print(ps);
 	}
 
 	@Override

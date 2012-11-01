@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.dreamcrushed.ClientComm.Packets.CloseFilePacket;
 import com.dreamcrushed.ClientComm.Packets.FloatLoc;
 import com.dreamcrushed.ClientComm.Packets.FloatLocReq;
 import com.dreamcrushed.ClientComm.Packets.GetPlayers;
@@ -14,8 +15,10 @@ import com.dreamcrushed.ClientComm.Packets.IntLocReq;
 import com.dreamcrushed.ClientComm.Packets.LongLoc;
 import com.dreamcrushed.ClientComm.Packets.LongLocReq;
 import com.dreamcrushed.ClientComm.Packets.NoPlayerSet;
+import com.dreamcrushed.ClientComm.Packets.OpenFilePacket;
 import com.dreamcrushed.ClientComm.Packets.PlayerList;
 import com.dreamcrushed.ClientComm.Packets.SetPlayer;
+import com.dreamcrushed.ClientComm.Packets.WriteFilePacket;
 
 
 /**
@@ -39,6 +42,9 @@ public enum PacketType {
 	FLOAT_LOC(11, FloatLoc.class),
 	LONG_LOC_REQ(12, LongLocReq.class),
 	LONG_LOC(12, LongLoc.class),
+	OPEN_FILE(13, OpenFilePacket.class),
+	WRITE_FILE(14, WriteFilePacket.class),
+	CLOSE_FILE(15, CloseFilePacket.class),
 	;
 	
 	private int type;

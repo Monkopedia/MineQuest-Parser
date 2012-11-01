@@ -23,7 +23,7 @@ public class LineDisplay extends BasePage {
 	protected static final long serialVersionUID = 1L;
 	public JFrame frame;
 	public int index;
-	protected List<FieldHandler> handlers;
+	public List<FieldHandler> handlers;
 	public QuestLine line;
 	public QuestParser parser;
 	public TaskDisplay display;

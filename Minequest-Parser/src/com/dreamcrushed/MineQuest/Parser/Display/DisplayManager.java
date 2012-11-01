@@ -72,7 +72,8 @@ public class DisplayManager {
 
 	public void setDisplay(Container left, Container right, int lsize, int w, int h) {
         frame.setSize(w, h);
-        frame.setJMenuBar(MenuBarHandler.createMenu(this, parser));
+        MenuBarHandler mbh = new MenuBarHandler(this, parser);
+        frame.setJMenuBar(mbh.getMenu());
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         //Create and set up the content pane.

@@ -1,7 +1,5 @@
 package com.dreamcrushed.MineQuest.Parser.Lines;
 
-import java.io.PrintStream;
-
 import com.dreamcrushed.MineQuest.Parser.QuestParser;
 import com.dreamcrushed.MineQuest.Parser.Task;
 import com.dreamcrushed.MineQuest.Parser.Type;
@@ -15,10 +13,9 @@ public class EventLine extends EnumeratedLine {
 
 	public EventLine(EventDefinition definition, String[] fields, int id)
 			throws Exception {
-		super(definition, fields);
+		super(definition, fields, id);
 		this.eDefinition = definition;
 		this.nextEvents = null;
-		this.id = id;
 	}
 
 	public EventLine(EventLine orig) throws Exception {
@@ -39,12 +36,6 @@ public class EventLine extends EnumeratedLine {
 
 	public void setNextEvents(Task task) {
 		this.nextEvents = task;
-	}
-	
-	@Override
-	public void print(PrintStream ps) {
-		fields[1] = id + "";
-		super.print(ps);
 	}
 
 	public void setDefinition(EventDefinition eventDefinition, QuestParser parser) {

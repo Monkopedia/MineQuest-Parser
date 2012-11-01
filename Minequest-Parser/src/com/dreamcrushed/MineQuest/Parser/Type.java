@@ -18,7 +18,9 @@ import com.dreamcrushed.MineQuest.Parser.Display.Handlers.EntityListHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.EventHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.EventListHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.EventTypeHandler;
+import com.dreamcrushed.MineQuest.Parser.Display.Handlers.FloatLocHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.IntList;
+import com.dreamcrushed.MineQuest.Parser.Display.Handlers.IntLocHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.ItemHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.ItemListHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.MultiItemHandler;
@@ -30,6 +32,7 @@ import com.dreamcrushed.MineQuest.Parser.Display.Handlers.TargetHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.TargetListHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.TargetTypeHandler;
 import com.dreamcrushed.MineQuest.Parser.Display.Handlers.TaskHandler;
+import com.dreamcrushed.MineQuest.Parser.Display.Handlers.VectorLocHandler;
 import com.dreamcrushed.MineQuest.Parser.Lines.QuestLine;
 
 public enum Type {
@@ -53,9 +56,9 @@ public enum Type {
 	FLOAT(1),
 	STRING(1),
 	BOOL(1),
-	ILOC(3),
-	FLOC(3),
-	FVEC(3),
+	ILOC(3, IntLocHandler.class),
+	FLOC(3, FloatLocHandler.class),
+	FVEC(3, VectorLocHandler.class),
 //	TASKLIST(1), // Needs implementing - Low priority, not used yet
 	LONGLOC(5),
 	QUESTFIELD(1, QuestFieldHandler.class),

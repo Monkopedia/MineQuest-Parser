@@ -33,124 +33,6 @@ public class QuestParser {
 	
 	public QuestParser(String filename) {
 		defs = new QuestDefinitionParser("defs.json");
-//		questDefs.add(new QuestDefinition("QuestArea", new FieldDefinition[] {
-//				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
-//				new FieldDefinition(Type.ILOC, "Start"),
-//				new FieldDefinition(Type.ILOC, "End"),
-//		}));
-//		questDefs.add(new QuestDefinition("Instance", new FieldDefinition[] {
-//				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
-//				new FieldDefinition(Type.INTEGER, "MaxInstances"),
-//				new FieldDefinition(Type.STRING, "InstanceName"),
-//				new FieldDefinition(Type.STRING, "OriginalName"),
-//				new FieldDefinition(Type.STRING, "Type"),
-//		}));
-//		questDefs.add(new QuestDefinition("Spawn", new FieldDefinition[] {
-//				new FieldDefinition(Type.QUESTFIELD, "FieldName"),
-//				new FieldDefinition(Type.FLOC, "Location"),
-//		}));
-//
-//		eventDefs.add(new EventDefinition("AreaEvent", new FieldDefinition[] {
-//					new FieldDefinition(Type.STRING, "Event"),
-//					new FieldDefinition(Type.INTEGER, "ID"),
-//					new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//					new FieldDefinition(Type.INTEGER, "Delay"),
-//					new FieldDefinition(Type.TASK, "NextIndex"),
-//					new FieldDefinition(Type.FLOC, "Location"),
-//					new FieldDefinition(Type.FLOAT, "Radius"),
-//			}));
-//		eventDefs.add(new EventDefinition("BlockEvent", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.ILOC, "Location"),
-//				new FieldDefinition(Type.INTEGER, "Type"),
-//		}));
-//		eventDefs.add(new EventDefinition("EntitySpawnerNoMove", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.FLOC, "Location"),
-//				new FieldDefinition(Type.STRING, "Creature"),
-//				new FieldDefinition(Type.BOOL, "Super"),
-//		}));
-//		eventDefs.add(new EventDefinition("EntitySpawnerCompleteNMEvent", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.TASK, "NextIndex"),
-//				new FieldDefinition(Type.STRING, "Events"),
-//		}));
-//		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.STRING, "All"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.INTEGER, "Exp"),
-//				new FieldDefinition(Type.INTEGER, "Class Experience"),
-//		}));
-//		eventDefs.add(new EventDefinition("ExperienceAdd", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.STRING, "All"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.INTEGER, "Exp"),
-//				new FieldDefinition(Type.INTEGER, "Class Experience"),
-//				new FieldDefinition(Type.INTEGER, "Cubes"),
-//		}));
-//		eventDefs.add(new EventDefinition("QuestEvent", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.TASK, "NextIndex"),
-//		}));
-//		eventDefs.add(new EventDefinition("SingleAreaEvent", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.TASK, "NextIndex"),
-//				new FieldDefinition(Type.FLOC, "Location"),
-//				new FieldDefinition(Type.FLOAT, "Radius"),
-//		}));
-//		eventDefs.add(new EventDefinition("ArrowEvent", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.FLOC, "Start"),
-//				new FieldDefinition(Type.FVEC, "Direction"),
-//		}));
-//		eventDefs.add(new EventDefinition("CanEdit", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.FLOC, "Location"),
-//				new FieldDefinition(Type.TASK, "NextIndex"),
-//		}));
-//		eventDefs.add(new EventDefinition("HealthEntitySpawn", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//				new FieldDefinition(Type.TASK, "NextIndex"),
-//				new FieldDefinition(Type.FLOC, "Location"),
-//				new FieldDefinition(Type.STRING, "Creature"),
-//				new FieldDefinition(Type.INTEGER, "Health"),
-//				new FieldDefinition(Type.BOOL, "Super"),
-//		}));
-//		eventDefs.add(new EventDefinition("CompleteQuestEvent", new FieldDefinition[] {
-//				new FieldDefinition(Type.STRING, "Event"),
-//				new FieldDefinition(Type.INTEGER, "ID"),
-//				new FieldDefinition(Type.EVENTTYPE, "EventName"),
-//				new FieldDefinition(Type.INTEGER, "Delay"),
-//		}));
 		if (filename != null) {
 			setupQuest(filename);
 		} else {
@@ -171,10 +53,11 @@ public class QuestParser {
 			try {
 				while ((line = bis.readLine()) != null) {
 					number++;
-					String split[] = line.split(":");
-//					if (split == null) split = new String[] {line};
-					if (split != null && split.length > 1) { 
-						parseLine(split);
+					if (!line.startsWith("#")) {
+						String split[] = line.split(":");
+						if (split != null && split.length > 1) { 
+							parseLine(split);
+						}
 					}
 					last = line;
 				}
@@ -201,6 +84,12 @@ public class QuestParser {
 			createTask(split, false);
 		} else if (split[0].equals("RepeatingTask")) {
 			createTask(split, true);
+		} else if (split[0].equals("Requirement")) {
+			createRequirement(split);
+		} else if (split[0].equals("Edit")) {
+			createEdit(split);
+		} else if (split[0].equals("Target")) {
+			createTarget(split);
 		} else {
 			for (int i = 0; i < defs.questDefs.size(); i++) {
 				if (defs.questDefs.get(i).name.equals(split[0])) {
@@ -214,6 +103,60 @@ public class QuestParser {
 			}
 			System.out.println("Unhandled field: " + split[0]);
 		}
+	}
+
+	private void createTarget(String[] line) throws Exception {
+		int id = Integer.parseInt(line[1]);
+		String type = line[2];
+		TargetLine newTarget;
+		
+		for (int i = 0; i < defs.targetDefs.size(); i++) {
+			if (defs.targetDefs.get(i).name.replaceAll(" ", "").equals(type)) {
+				newTarget = new TargetLine(defs.targetDefs.get(i), line, id);
+				targets.put(id, newTarget);
+				if (last.startsWith("#")) {
+					newTarget.name = last.replaceAll("#", "");
+				}
+				return;
+			}
+		}
+		System.out.println("Unhandled target: " + type);
+	}
+
+	private void createEdit(String[] line) throws Exception {
+		int id = Integer.parseInt(line[1]);
+		String type = line[2];
+		EditLine newEdit;
+		
+		for (int i = 0; i < defs.editDefs.size(); i++) {
+			if (defs.editDefs.get(i).name.replaceAll(" ", "").equals(type)) {
+				newEdit = new EditLine(defs.editDefs.get(i), line, id);
+				edits.put(id, newEdit);
+				if (last.startsWith("#")) {
+					newEdit.name = last.replaceAll("#", "");
+				}
+				return;
+			}
+		}
+		System.out.println("Unhandled edit: " + type);
+	}
+
+	private void createRequirement(String[] line) throws Exception {
+		int id = Integer.parseInt(line[1]);
+		String type = line[2];
+		RequirementLine newRequirement;
+		
+		for (int i = 0; i < defs.requireDefs.size(); i++) {
+			if (defs.requireDefs.get(i).name.replaceAll(" ", "").equals(type)) {
+				newRequirement = new RequirementLine(defs.requireDefs.get(i), line, id);
+				requirements.put(id, newRequirement);
+				if (last.startsWith("#")) {
+					newRequirement.name = last.replaceAll("#", "");
+				}
+				return;
+			}
+		}
+		System.out.println("Unhandled requirement: " + type);
 	}
 
 	private void createTask(String[] split, boolean b) throws Exception {
@@ -244,11 +187,12 @@ public class QuestParser {
 		EventLine newEvent;
 		
 		for (int i = 0; i < defs.eventDefs.size(); i++) {
-			if (defs.eventDefs.get(i).name.equals(type)) {
+			if (defs.eventDefs.get(i).name.replaceAll(" ", "").equals(type)) {
 				newEvent = new EventLine(defs.eventDefs.get(i), line, id);
 				if (defs.eventDefs.get(i).hasTask()) {
 					newEvent.setNextEvents(getTask(defs.eventDefs.get(i).getTask(line)));
 				}
+				System.out.println("Adding event " + id);
 				events.put(id, newEvent);
 				if (last.startsWith("#")) {
 					newEvent.name = last.replaceAll("#", "");
@@ -277,6 +221,21 @@ public class QuestParser {
 			
 			ps.println("\n\n#Quest Parameters");
 			for (QuestLine ql : fields) {
+				ql.print(ps);
+			}
+			
+			ps.println("\n\n#Quest Requirements");
+			for (QuestLine ql : requirements.values()) {
+				ql.print(ps);
+			}
+			
+			ps.println("\n\n#Quest Edits");
+			for (QuestLine ql : edits.values()) {
+				ql.print(ps);
+			}
+			
+			ps.println("\n\n#Quest Targets");
+			for (QuestLine ql : targets.values()) {
 				ql.print(ps);
 			}
 

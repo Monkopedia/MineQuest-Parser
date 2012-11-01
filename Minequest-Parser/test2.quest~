@@ -1,0 +1,30 @@
+#Quest Created with MineQuest Quest Writer v0.1
+
+
+#Quest Parameters
+Name:My Quest
+
+
+#Quest Requirements
+#0: GroupSizeRequirement
+Requirement:1:GroupSizeRequirement:1
+
+
+#Quest Edits
+#0: CanEdit
+Edit:1:CanEdit:174:62:255:
+
+
+#Quest Targets
+#0: AreaTarget
+Target:1:AreaTarget:175.7666:63.0:257.18207:2
+
+
+#Quest Events
+#1: Task Event
+Event:1:TaskEvent:1:1
+
+
+#Quest Tasks
+#Start
+Task:0:1

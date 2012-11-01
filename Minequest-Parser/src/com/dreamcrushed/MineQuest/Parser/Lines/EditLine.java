@@ -9,13 +9,12 @@ public class EditLine extends EnumeratedLine {
 		super(definition, parser);
 	}
 
-	public EditLine(QuestDefinition definition, String[] fields)
-			throws Exception {
-		super(definition, fields);
-	}
-
 	public EditLine(QuestLine orig) throws Exception {
 		super(orig);
+	}
+
+	public EditLine(QuestDefinition definition, String[] fields, int id) throws Exception {
+		super(definition, fields, id);
 	}
 
 	@Override
