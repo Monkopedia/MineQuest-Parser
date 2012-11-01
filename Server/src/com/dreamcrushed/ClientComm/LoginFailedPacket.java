@@ -11,8 +11,8 @@ public class LoginFailedPacket extends Packet {
 	}
 	
 	@Override
-	public void handle(NetworkManager networkManager) {
-		super.handle(networkManager);
+	public void handle(User user) {
+		super.handle(user);
 		System.out.println("Error: " + this.error);
 		// TODO: Handle Error Here
 	}

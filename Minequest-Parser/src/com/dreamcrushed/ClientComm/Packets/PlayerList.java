@@ -1,6 +1,5 @@
 package com.dreamcrushed.ClientComm.Packets;
 
-import com.dreamcrushed.ClientComm.NetworkManager;
 import com.dreamcrushed.ClientComm.Packet;
 import com.dreamcrushed.ClientComm.PacketType;
 import com.dreamcrushed.ClientComm.Util;
@@ -13,7 +12,7 @@ public class PlayerList extends Packet {
 
 	@Override
 	public String packetString() {
-		return Util.concat(new String[] {PacketType.UID.getType() + "", NetworkManager.getUserId() + ""}, ":");
+		return Util.concat(new String[] {PacketType.PLAYER_LIST.getType() + ""}, ":");
 	}
 
 }
