@@ -1,0 +1,547 @@
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Complete Quest Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Lock World Time Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Time" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Message Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Message" :  "String",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Name Event" :  "EVENTTYPE",
+	"Name" :  "String",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Party Health Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Percentile" :  "FLOAT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Quest Available Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Questname" :  "String",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Requirement Met Event" :  "EVENTTYPE",
+	"Requirement" :  "REQUIREMENT",
+	"Task Pass" :  "TASK",
+	"Task Fail" :  "TASK",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Reward Cmd Event" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"Command" :  "String",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Reward Damaged" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"Item" :  "ITEM",
+	"Durability" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Reward Enchanted" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"Item" :  "ITEM",
+	"EnchantmentNumber" :  "INT",
+	"EnchantmentLevel" :  "INT",
+	"ItemDurability" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Reward Item Event" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"Item+Quantity" :  "MITEM",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Reward Money Event" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"Money" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Reward Perm Event" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"Permissions" :  "String",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Task Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Next Task" :  "TASK",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Collect Event" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"ItemIds" :  "ITEMLIST",
+	"Quantities" :  "INTLIST",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Destroy Event" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"BlockIds" :  "ITEMLIST",
+	"Quantities" :  "INTLIST",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Kill Event" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"Entities" :  "ENTITYLIST",
+	"Quantities" :  "INTLIST",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"NRCollect Event" :  "EVENTTYPE",
+	"Next Task" :  "TASK",
+	"ItemIds" :  "ITEMLIST",
+	"Quantities" :  "INTLIST",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Area Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Next Task" :  "TASK",
+	"Location" :  "FLOC",
+	"Radius" :  "Float",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Single Area Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Next Task" :  "TASK",
+	"Location" :  "FLOC",
+	"Radius" :  "Float",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Advanced Block Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Location" :  "ILOC",
+	"TypeID" :  "ITEM",
+	"Damage" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Block CD Event" :  "EVENTTYPE",
+	"Delay Start" :  "INT",
+	"Delay End" :  "INT",
+	"Location" :  "ILOC",
+	"TypeID" :  "ITEM",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Block DC Event" :  "EVENTTYPE",
+	"Delay Start" :  "INT",
+	"Delay End" :  "INT",
+	"Location" :  "ILOC",
+	"TypeID" :  "ITEM",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Block Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Location" :  "ILOC",
+	"TypeID" :  "ITEM",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Block Interact Event" :  "EVENTTYPE",
+	"Location" :  "ILOC",
+	"Next Task" :  "TASK",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Entity Spawner Complete Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Next Task" :  "TASK",
+	"Event List" :  "EVENTLIST",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Entity Spawner Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Location" :  "FLOC",
+	"Mob Type" :  "ENTITY",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Entity Spawner No Move Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Location" :  "FLOC",
+	"Mob Type" :  "ENTITY",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Entity Spawner No Move Complete Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Next Task" :  "TASK",
+	"Event List" :  "EVENTLIST",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Entity Spawn Number Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Location" :  "FLOC",
+	"Mob Type" :  "ENTITY",
+	"Amount" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Arrow Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Location" :  "FLOC",
+	"Float Vec" :  "FVEC",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Explosion Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Location" :  "FLOC",
+	"Radius" :  "FLOAT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Explosion Event" :  "EVENTTYPE",
+	"T" :  "T",
+	"Delay" :  "INT",
+	"Target" :  "TARGET",
+	"Radius" :  "FLOAT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Lightning Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Location" :  "FLOC",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Lightning Event" :  "EVENTTYPE",
+	"T" :  "T",
+	"Delay" :  "INT",
+	"Target" :  "TARGET",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Weather Event" :  "EVENTTYPE",
+	"Delay" :  "INT",
+	"Rain" :  "BOOL",
+	"Duration" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Damage Event" :  "EVENTTYPE",
+	"T" :  "T",
+	"Delay" :  "INT",
+	"Target" :  "TARGET",
+	"Damage" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Health Event" :  "EVENTTYPE",
+	"T" :  "T",
+	"Delay" :  "INT",
+	"Target" :  "TARGET",
+	"Percentage" :  "FLOAT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Poison Event" :  "EVENTTYPE",
+	"T" :  "T",
+	"Delay" :  "INT",
+	"Target" :  "TARGET",
+	"Time" :  "INT",
+}
+{
+	"Event" :  "String",
+	"ID" :  "int",
+	"Teleport Event" :  "EVENTTYPE",
+	"T" :  "T",
+	"Delay" :  "INT",
+	"Target" :  "TARGET",
+	"Location" :  "FLOC",
+}
+{
+	"AcceptText" :  "QUESTFIELD",
+	"Message" :  "String",
+}
+{
+	"CancelText" :  "QUESTFIELD",
+	"Message" :  "String",
+}
+{
+	"Description" :  "QUESTFIELD",
+	"Message" :  "String",
+}
+{
+	"EditMessage" :  "QUESTFIELD",
+	"Message" :  "String",
+}
+{
+	"FailedText" :  "QUESTFIELD",
+	"Message" :  "String",
+}
+{
+	"FinishText" :  "QUESTFIELD",
+	"Message" :  "String",
+}
+{
+	"GetReq" :  "QUESTFIELD",
+	"Requirement List" :  "REQUIREMENTLIST",
+}
+{
+	"Instance" :  "QUESTFIELD",
+	"?" :  "IGNORE",
+	"?" :  "IGNORE",
+	"World Name" :  "String",
+}
+{
+	"Instanced" :  "QUESTFIELD",
+	"World Name" :  "String",
+}
+{
+	"LoadWorld" :  "QUESTFIELD",
+	"?" :  "IGNORE",
+	"?" :  "IGNORE",
+	"World Name" :  "String",
+}
+{
+	"Name" :  "QUESTFIELD",
+	"Quest Name" :  "String",
+}
+{
+	"Repeatable" :  "QUESTFIELD",
+	"Repeatable" :  "Bool",
+}
+{
+	"Reset" :  "QUESTFIELD",
+	"Spawn" :  "Bool",
+}
+{
+	"Spawn" :  "QUESTFIELD",
+	"Location" :  "FLOC",
+}
+{
+	"StartReq" :  "QUESTFIELD",
+	"Requirement List" :  "REQUIREMENTLIST",
+}
+{
+	"World" :  "QUESTFIELD",
+	"World Name" :  "String",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"GroupSizeRequirement" :  "REQUIREMENTTYPE",
+	"Size" :  "int",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"HasItemRequirement" :  "REQUIREMENTTYPE",
+	"Item ID" :  "int",
+	"Damage" :  "int",
+	"Quantity" :  "int",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"ItemInHandRequirement" :  "REQUIREMENTTYPE",
+	"Item ID" :  "int",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"LevelRequirement" :  "REQUIREMENTTYPE",
+	"Comparison" :  "COMPARE",
+	"Level" :  "int",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"MoneyRequirement" :  "REQUIREMENTTYPE",
+	"Money" :  "Float",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"NotRepeatableRequirement" :  "REQUIREMENTTYPE",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"PermissionsRequirement" :  "REQUIREMENTTYPE",
+	"Permission" :  "String",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"QuestCompletedRequirement" :  "REQUIREMENTTYPE",
+	"Quest Name" :  "String",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"QuestFailedRequirement" :  "REQUIREMENTTYPE",
+	"Quest Name" :  "String",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"RealDateRequirement" :  "REQUIREMENTTYPE",
+	"Before" :  "Date",
+	"After" :  "Date",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"Time Requirement" :  "REQUIREMENTTYPE",
+	"Lower Tick" :  "int",
+	"Upper Tick" :  "int",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"WeatherRequirement" :  "REQUIREMENTTYPE",
+	"Is Raining" :  "Bool",
+}
+{
+	"Requirement" :  "String",
+	"ID" :  "int",
+	"WorldRequirement" :  "REQUIREMENTTYPE",
+	"World" :  "String",
+}
+{
+	"Edit" :  "String",
+	"ID" :  "int",
+	"CanEdit" :  "EDITTYPE",
+	"Location" :  "ILOC",
+	"Next Task" :  "TASK",
+}
+{
+	"Edit" :  "String",
+	"ID" :  "int",
+	"CanEditArea" :  "EDITTYPE",
+	"Location" :  "ILOC",
+	"Location" :  "ILOC",
+	"Next Task" :  "TASK",
+}
+{
+	"Edit" :  "String",
+	"ID" :  "int",
+	"CanEditOutsideArea" :  "EDITTYPE",
+	"Location" :  "ILOC",
+	"Location" :  "ILOC",
+	"Next Task" :  "TASK",
+}
+{
+	"Edit" :  "String",
+	"ID" :  "int",
+	"CanEditTypesInHand" :  "EDITTYPE",
+	"Next Task" :  "TASK",
+	"Item List" :  "ITEMLIST",
+}
+{
+	"Edit" :  "String",
+	"ID" :  "int",
+	"CanEditTypes" :  "EDITTYPE",
+	"Next Task" :  "TASK",
+	"Item List" :  "ITEMLIST",
+}
+{
+	"Target" :  "String",
+	"ID" :  "int",
+	"AreaTarget" :  "TARGETTYPE",
+	"Location" :  "FLOC",
+	"Radius" :  "Float",
+}
+{
+	"Target" :  "String",
+	"ID" :  "int",
+	"AreaTargetQuester" :  "TARGETTYPE",
+	"Target" :  "TARGET",
+	"Radius" :  "Float",
+}
+{
+	"Target" :  "String",
+	"ID" :  "int",
+	"PartyTarget" :  "TARGETTYPE",
+}
+{
+	"Target" :  "String",
+	"ID" :  "int",
+	"Targetter" :  "TARGETTYPE",
+	"Event List" :  "EVENTLIST",
+}
+{
+	"Target" :  "String",
+	"ID" :  "int",
+	"TargetterEdit" :  "TARGETTYPE",
+	"Edit List" :  "EDITLIST",
+}
+{
+	"Target" :  "String",
+	"ID" :  "int",
+	"RandomTarget" :  "TARGETTYPE",
+}
+{
+	"Target" :  "String",
+	"ID" :  "int",
+	"Leader" :  "TARGETTYPE",
+}
+
